@@ -1,0 +1,25 @@
+INSTUPOrderDB
+/Users/emilymedema/Documents/Third Year/COSC 304/Lab6/Lab6Eclipse/src/OrderDB.py
+INFOS:&&1|1|1|0|2|14|7&&2|3|1|1|2|17|9&&3|4|1|5|2|23|13&&2|6|1|1|2|28|9&&2|7|1|1|2|51|9&&2|8|1|1|2|58|9&&2|9|1|1|2|79|9&&2|10|1|1|2|106|9&&2|11|1|1|2|131|9&&2|12|1|1|2|141|9&&2|13|1|1|2|151|9&&2|14|1|1|2|161|9&&2|15|1|1|2|171|9&&2|16|1|1|2|182|9&&2|17|1|1|2|191|9&&2|18|1|1|2|200|9&&2|19|1|1|2|214|9&&2|20|1|1|2|225|9&&2|21|1|1|2|243|9&&2|22|1|1|2|262|9
+init=6
+listCustomerOrders=9
+resultSetToString=22
+computeOrderTotal=11
+OrderDB=1
+listAllCustomers=8
+deleteCustomer=13
+updateOrderTotal=17
+cnx=4
+OrderDB.connect=5
+addCustomer=12
+updateCustomer=14
+query4=21
+/Users/emilymedema/Documents/Third Year/COSC 304/Lab6/Lab6Eclipse/src/OrderDB.py=2
+newOrder=15
+newLineItem=16
+close=7
+query1=18
+connect=3
+listLineItemsForOrder=10
+query2=19
+query3=20
