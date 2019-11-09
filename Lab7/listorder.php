@@ -32,23 +32,24 @@ Useful code for formatting currency:
 
 
 /** Close connection **/
-	$username = "fill-in";
+/**	$username = "fill-in";
 	$password = "fill-in";
 	$database = "WorksOn";
 	$server = "sql04.ok.ubc.ca";
-	$connectionInfo = array( "Database"=>$database, "UID"=>$username, "PWD"=>$password, "CharacterSet" => "UTF-8");
+	$connectionInfo = array( "Database"=>$database, "UID"=>$username, "PWD"=>$password, "CharacterSet" => "UTF-8");**/
 
 	$con = sqlsrv_connect($server, $connectionInfo);
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
 	}
 
-	$sql = "SELECT ename,salary FROM emp";
+	$sql = "SELECT orderId,orderDate, customerId, firstName, lastName, totalAmount FROM ordersummary, customer where ordersummary.customerId = customer.customerId;";
 	$results = sqlsrv_query($con, $sql, array());
-	echo("<table><tr><th>Name</th><th>Salary</th></tr>");
+	echo("<table><tr><th>Order Id</th><th>Order Data</th><th> Customer Id</th><th>Total Amount</th></tr>");
 	while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
-		echo("<tr><td>" . $row['ename'] . "</td><td>" . $row['salary'] . "</td></tr>");
+		echo("<tr><td>" . $row['orderId'] . "</td><td>" . $row['orderDate'] . "</td><td>" . $row['Customer Id'] . "</td><td>" . $row['firstName'] . $row['lastName']. "</td><td>" . $row['Total Amount'] . "</td></tr>");
 	}
+	//idk if this is right or not.
 	echo("</table>");
 ?>
 </body>
