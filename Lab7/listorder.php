@@ -9,7 +9,6 @@
 <h1>Order List</h1>
 
 <?php
-include 'include/db_credentials.php';
 
 /** Create connection, and validate that it connected successfully **/
 
@@ -32,25 +31,34 @@ Useful code for formatting currency:
 
 
 /** Close connection **/
-/**	$username = "fill-in";
-	$password = "fill-in";
-	$database = "WorksOn";
-	$server = "sql04.ok.ubc.ca";
-	$connectionInfo = array( "Database"=>$database, "UID"=>$username, "PWD"=>$password, "CharacterSet" => "UTF-8");**/
-
+	include 'include/db_credentials.php';
 	$con = sqlsrv_connect($server, $connectionInfo);
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
 	}
-
-	$sql = "SELECT orderId,orderDate, customerId, firstName, lastName, totalAmount FROM ordersummary, customer where ordersummary.customerId = customer.customerId;";
+	$sql = "SELECT orderId, orderDate, C.customerId, firstName+' '+lastName as cname, totalAmount FROM ordersummary O, customer C WHERE O.customerId = C.customerId";
 	$results = sqlsrv_query($con, $sql, array());
-	echo("<table><tr><th>Order Id</th><th>Order Data</th><th> Customer Id</th><th>Total Amount</th></tr>");
+	echo("<table><tr><th>Order Id</th><th>Order Date</th><th> Customer Id</th><th>Customer Name</th><th>Total Amount</th></tr>");
+	$sql2 = "SELECT productId, quantity, price from orderproduct where orderId = ?";
+	$orderId = 0;
+	$result2 = sqlsrv_prepare($con, $sql2, array(&$orderId));
 	while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
-		echo("<tr><td>" . $row['orderId'] . "</td><td>" . $row['orderDate'] . "</td><td>" . $row['Customer Id'] . "</td><td>" . $row['firstName'] . $row['lastName']. "</td><td>" . $row['Total Amount'] . "</td></tr>");
-	}
+		$orderId = $row['orderId'];
+		$orderDate = $row['orderDate'];
+		echo("<tr><td>" . $orderId . "</td><td>" . $orderDate->format('Y-m-d H:i:s') . "</td><td>" . $row['customerId'] . "</td><td>" . $row['cname'] . "</td><td>$".number_format($row['totalAmount'],2). "</td></tr>");
+		sqlsrv_execute($result2);
+		echo("<tr align = \"right\"><td = colspan = \"5\">");
+		echo("<th>Product Id</th><th>Quantity</th><th>Price</th></tr>");
+		while($row2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
+			echo("<tr><td>".$row2['productId']."</td>");
+			echo("<td>".$row2['quantity']."<//td>");
+			echo("<td>$".number_format($row2['price'],2)."</td></tr>");
+		}
+		echo("</table></td></tr>");
 	//idk if this is right or not.
+	}
 	echo("</table>");
+
 ?>
 </body>
 </html>
