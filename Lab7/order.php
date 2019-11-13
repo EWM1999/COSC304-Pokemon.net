@@ -54,6 +54,12 @@ if(!$valid_customer){
 elseif(!isset($_SESSION['productList'])){
 	echo('Error. You do not have a shopping cart :(');
 }else{
+	$custId = intval($custId);
+	$sql = "SELECT customerId, firstName + ' ' + lastName as cname from customer where customerId = ?";
+	$r = sqlsrv_query($con, $sql, array($custId));
+	if($re = sqlsrv_fetch_array($r, SQLSRV_FETCH_ASSOC)){
+
+
 
 /** Make connection and validate **/
 
@@ -79,9 +85,29 @@ for product in productList:
 	**/
 
 
+//he takes the custId (intval) and grabs custId, firstName and lastName as cname from customer where = custId
+//set orderdate to date('Y-m-d H:i:s')
+	//insert <table> (values) OUTPUT INSERTED.orderId values(?,?,?);
+	//run query ($con, $sql, array(values))
+	//does something for errors
+	//set order id to sqlsrv_get_field(resultset, 0)
+	//print order Summary
+	//print table product id, name, quantity, price, subtotal
+	//total = 0
+	/*foreach ($productList as $id => $prod){
+		echo id \n name \n quantity \ price \ total
+		total = total + price*quantity
+		insert into OrderProduct
+}*/
+//update order total set totalAmount where orderid = id
+//print order info and return to shop.html
+//clear session variables set to null
+//close
+
 // today's date
-$orderDate = NULL;
-$sql = "INSERT INTO ordersummary OUTPUT INSERTED.orderId (orderDate, total_amount, customerId) VALUES (?, 0, ?);"
+$custName = $re['cname'];
+$orderDate = date('Y-m-d H:i:s');
+$sql = "INSERT INTO ordersummary (orderDate, total_amount, customerId) OUTPUT INSERTED.orderId (orderDate, total_amount, customerId) VALUES (?, 0, ?);"
 $result = sqlsrv_query($con, $sql, array($orderDate, $custId));
 if(!sqlsrv_fetch($result)){
 	sqlsrv_errors();
@@ -124,6 +150,7 @@ $result = sqlsrv_query($con, $sql, array($total_amount));
 /** Print out order summary **/
 
 /** Clear session/cart **/
+}
 }
 ?>
 </body>
