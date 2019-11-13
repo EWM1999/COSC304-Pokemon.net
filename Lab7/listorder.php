@@ -36,13 +36,17 @@ Useful code for formatting currency:
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
 	}
+	$orderId = 0;
 	$sql = "SELECT orderId, orderDate, C.customerId, firstName+' '+lastName as cname, totalAmount FROM ordersummary O, customer C WHERE O.customerId = C.customerId";
 	$results = sqlsrv_query($con, $sql, array());
 	echo("<table><tr><th>Order Id</th><th>Order Date</th><th> Customer Id</th><th>Customer Name</th><th>Total Amount</th></tr>");
 	$sql2 = "SELECT productId, quantity, price from orderproduct where orderId = ?";
-	$orderId = 0;
 	$result2 = sqlsrv_prepare($con, $sql2, array(&$orderId));
+	if(!$results){
+		echo("False Statement Bitch");
+	}
 	while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
+		/*echo($row)*/
 		$orderId = $row['orderId'];
 		$orderDate = $row['orderDate'];
 		echo("<tr><td>" . $orderId . "</td><td>" . $orderDate->format('Y-m-d H:i:s') . "</td><td>" . $row['customerId'] . "</td><td>" . $row['cname'] . "</td><td>$".number_format($row['totalAmount'],2). "</td></tr>");
