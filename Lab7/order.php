@@ -12,11 +12,15 @@ include 'include/db_credentials.php';
 $custId = null;
 if(isset($_GET['customerId'])){
 	$custId = $_GET['customerId'];
+}else{
+	die('Error. You are not a valid customer :(');
 }
 session_start();
 $productList = null;
 if (isset($_SESSION['productList'])){
 	$productList = $_SESSION['productList'];
+}else{
+	die('Error. You do not have a shopping cart :(')
 }
 
 /**
@@ -103,6 +107,7 @@ foreach ($productList as $product => $productList) {
 
 $sql = "UPDATE ordersummary SET total_amount = ?"
 $result = sqlsrv_query($con, $sql, array($total_amount)); 
+
 
 **/
 
