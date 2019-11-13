@@ -51,7 +51,7 @@ Useful code for formatting currency:
 		$orderDate = $row['orderDate'];
 		echo("<tr><td>" . $orderId . "</td><td>" . $orderDate->format('Y-m-d H:i:s') . "</td><td>" . $row['customerId'] . "</td><td>" . $row['cname'] . "</td><td>$".number_format($row['totalAmount'],2). "</td></tr>");
 		sqlsrv_execute($result2);
-		echo("<tr align = \"right\"><td = colspan = \"5\"><table border = \"2\"");
+		echo("<tr align = \"right\"><td = colspan = \"5\"><table border = \"2\">");
 		echo("<th>Product Id</th><th>Quantity</th><th>Price</th></tr>");
 		while($row2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
 			echo("<tr><td>".$row2['productId']."</td>");
