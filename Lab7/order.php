@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>YOUR NAME Grocery Order Processing</title>
+<title>Pokémon.net Order Processing</title>
 </head>
 <body>
 
@@ -20,7 +20,7 @@ $productList = null;
 if (isset($_SESSION['productList'])){
 	$productList = $_SESSION['productList'];
 }else{
-	die('Error. You do not have a shopping cart :(')
+	die('Error. You do not have a shopping cart :(');
 }
 
 /**
@@ -107,23 +107,27 @@ for product in productList:
 // today's date
 $custName = $re['cname'];
 $orderDate = date('Y-m-d H:i:s');
-$sql = "INSERT INTO ordersummary (orderDate, total_amount, customerId) OUTPUT INSERTED.orderId (orderDate, total_amount, customerId) VALUES (?, 0, ?);"
+$sql = "INSERT INTO ordersummary (orderDate, total_amount, customerId) OUTPUT INSERTED.orderId (orderDate, total_amount, customerId) VALUES (?, 0, ?);";
 $result = sqlsrv_query($con, $sql, array($orderDate, $custId));
 if(!sqlsrv_fetch($result)){
 	sqlsrv_errors();
 }
 $orderId = sqlsrv_get_field($result,0);
 
+echo("<h2>Your Order Summary</h2>");
+echo("<table border = \"2\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
 /** Insert each item into OrderedProduct table using OrderId from previous INSERT **/
 
 $total_amount = 0;
 foreach ($productList as $product => $productList) {
-
+	//maybe?????
+	echo("<tr><td>".$productList['productId']."</td>");
+	echo("<td>".$productList['productName']."</td>");
 	# maybe you need a select for the product
 	# is it a name or id
 	# get cost
 	# i have no idea how to make quantity work
-	$total_amount += "whatever the new value is :P"
+	$total_amount += $productList['quantity']*$price;
 	$sql = "INSERT INTO orderproduct (orderId, productId) VALUES (?, ?)";
 	$result = sqlsrv_query($con, $sql, array($orderId, $product));
 }
