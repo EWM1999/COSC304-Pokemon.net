@@ -104,8 +104,8 @@ foreach($productList as $id => $product){
 	echo("<td align=\"right\">$".number_format($subtotal, 2)."</td>");
 	echo("</tr>");
 
-	$sql = "INSERT INTO OrderProduct (orderId, productId, quantity, price) VALUES (?, ?, ?, ?);";
-	sqlsrv_query($con, $sql, array($orderId, $product_id, $product_quantity, $product_price));
+	$sql = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (?, ?, ?, ?);";
+	sqlsrv_query($con, $sql, array($orderId, $product_id, $product_quantity, $product['price']));
 	// if(!$result){
 	// 	die("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
 	// }
@@ -148,6 +148,7 @@ echo("<h2><a href=\"shop.html\">Return to collecting 'em all :)</a></h2>");
 
 /** Clear session/cart **/
 $_SESSION['productList'] = NULL;
+sqlsrv_close($con);
 ?>
 </body>
 </html>

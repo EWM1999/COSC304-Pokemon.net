@@ -71,6 +71,7 @@
 		        Useful code for formatting currency:
 			       number_format(yourCurrencyVariableHere,2)
 		     **/
+			//$name = "";
 			sqlsrv_close($con);
 		?>
 
