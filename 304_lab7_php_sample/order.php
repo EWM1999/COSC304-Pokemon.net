@@ -14,6 +14,7 @@ $custId = null;
 if(isset($_GET['customerId'])){
 	$custId = $_GET['customerId'];
 }
+
 session_start();
 $productList = null;
 if (isset($_SESSION['productList'])){
@@ -31,7 +32,7 @@ If either are not true, display an error message
 // valid customer id?
 // maybe if its an integer? Because the ddl wants one?
 if(!is_int($custId)){
-	die("<p>You did not enter a valid customer id :( </p>");
+	die("<p>ids are supposed to be numbers buddy :( </p>");
 }
 // maybe if its in the customer list
 
@@ -65,6 +66,7 @@ $row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
 	**/
 $customer_name = $row['firstName']." ".$row['lastName'];
 
+// the order date is today
 $orderDate = date('Y-m-d H:i:s');
 
 // ok Ramon
@@ -78,7 +80,7 @@ if(!$result){
 $orderId = sqlsrv_get_field($pstmt,0);
 
 echo("<h1>Your Order Summary</h1>");
-echo("<table>");
+echo("<table border = \"2\">");
 echo("<tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
 
 /** Insert each item into OrderedProduct table using OrderId from previous INSERT **/
@@ -96,18 +98,20 @@ foreach($productList as $id => $product){
 	echo("<td>".$product_name."</td>");
 
 	echo("<td align=\"center\">".$product_quantity."</td>");
-	echo("<td align=\"right\">$". number_format($product_price, 2)."</td>");
+	echo("<td align=\"right\">$".number_format($product_price, 2)."</td>");
 
 	$subtotal = $product_price * $product_quantity;
-	echo("<td align=\"right\">$". number_format($subtotal, 2)."</td></tr>");
+	echo("<td align=\"right\">$".number_format($subtotal, 2)."</td>");
 	echo("</tr>");
 
-	$total = $total + $product_price * $product_quantity;
-	$sql = "INSERT INTO OrderProduct (orderId, productId, quantity, price) VALUES(?, ?, ?, ?)";
+	$sql = "INSERT INTO OrderProduct (orderId, productId, quantity, price) VALUES (?, ?, ?, ?);";
 	$result = sqlsrv_query($con, $sql, array($orderId, $product_id, $product_quantity, $product_price));
 	if(!$result){
 		echo("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
 	}
+
+	// update the total
+	$total = $total + $subtotal;
 }
 
 /** Update total amount for order record **/
