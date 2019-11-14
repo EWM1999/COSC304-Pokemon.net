@@ -52,7 +52,7 @@
 		}
 		echo("<table border = \"1\"><tr><th>Add to Cart</th><th>Product Name</th><th>Price</th></tr>");
 		while($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
-			echo("<tr><td><a href =\"addcart.php?id=".$row['productId']."&name =".$row['productName']. "&price=" . $row['productPrice'] . "\">Add</a></td><td>".$row['productName']."</td><td>".number_format($row['productPrice'],2)."</td></tr>");
+			echo("<tr><td><a href =\"addcart.php?id=".$row['productId']."&name=".$row['productName']. "&price=" . $row['productPrice'] . "\">Add</a></td><td>".$row['productName']."</td><td>".number_format($row['productPrice'],2)."</td></tr>");
 		}
 		echo("</table>");
 		
