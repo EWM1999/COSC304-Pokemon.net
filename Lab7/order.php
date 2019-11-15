@@ -10,7 +10,7 @@
 include 'include/db_credentials.php';
 
 /** Get customer id **/
-$custId = null;
+$custId = "";
 if(isset($_GET['customerId'])){
 	$custId = $_GET['customerId'];
 }else{
