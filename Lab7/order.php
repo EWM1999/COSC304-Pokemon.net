@@ -108,7 +108,7 @@ foreach($productList as $id => $product){
 	$sql = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (?, ?, ?, ?);";
 	$result = sqlsrv_query($con, $sql, array($orderId, $product_id, $product_quantity, $product['price']));
 	 if(!$result){
-	 	echo("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
+	 	die("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
 	 }
 
 	// update the total
