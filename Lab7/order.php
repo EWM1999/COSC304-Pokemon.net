@@ -13,6 +13,8 @@ include 'include/db_credentials.php';
 $custId = null;
 if(isset($_GET['customerId'])){
 	$custId = $_GET['customerId'];
+}else{
+	die("<p>You are not a valid customer :( </p>");
 }
 
 session_start();
@@ -35,7 +37,6 @@ if(!is_numeric($custId)){
 	die("<p>ids are supposed to be numbers buddy :( </p>");
 }
 // maybe if its in the customer list
-
 include 'include/db_credentials.php';
 $con = sqlsrv_connect($server, $connectionInfo);
 
@@ -46,7 +47,7 @@ if(!$result){
 	die("<p>You are not a valid customer :( </p>");
 }
 
-
+$custId = intval($custId);
 
 /** Make connection and validate **/
 
@@ -74,7 +75,7 @@ $sql = "INSERT INTO ordersummary (customerId, totalAmount, orderDate) OUTPUT INS
 $result = sqlsrv_query($con, $sql, array($custId, $orderDate));
 
 if(!$result){
-	echo("idk the query didn't insert or something. idk how to fix that");
+	die("idk the query didn't insert or something. idk how to fix that");
 }
 
 $orderId = sqlsrv_get_field($result,0);
@@ -88,7 +89,7 @@ echo("<tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th
 $total = 0;
 foreach($productList as $id => $product){
 	// maybe someone can check this?
-	$product_id = intval($product['id'], 10);
+	$product_id = intval($product['id']);
 	$product_name = $product['name'];
 	$product_price = floatval($product['price']);
 	$product_quantity = $product['quantity'];
@@ -105,10 +106,10 @@ foreach($productList as $id => $product){
 	echo("</tr>");
 
 	$sql = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (?, ?, ?, ?);";
-	sqlsrv_query($con, $sql, array($orderId, $product_id, $product_quantity, $product['price']));
-	// if(!$result){
-	// 	die("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
-	// }
+	$result = sqlsrv_query($con, $sql, array($orderId, $product_id, $product_quantity, $product['price']));
+	 if(!$result){
+	 	die("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
+	 }
 
 	// update the total
 	$total = $total + $subtotal;
@@ -139,9 +140,9 @@ if(!$result){
 
 /** Print out order summary **/
 
-echo("Order Complete :). Your pokemon will be wired to you shortly<br>");
-echo("Your order reference is: ".$orderId."<br");
-echo("We are shipping to Pokemon Trainer ".$customer_name." with id ".$custId."</br>");
+echo("Order Complete :) :). Your pokemon will be wired to you shortly<br>");
+echo("Your order reference is: ".$orderId."<br>");
+echo("We are shipping to Pokemon Trainer ".$customer_name." with id ".$custId."<br>");
 echo("friendly reminder that animal fighting is a crime :)");
 
 echo("<h2><a href=\"shop.html\">Return to collecting 'em all :)</a></h2>");
