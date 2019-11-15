@@ -10,7 +10,7 @@
 
 		<form method="get" action="listprod.php">
 		<input type="text" name="productName" size="50">
-		<input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
+		<input type="submit" value="Submit"><input type="reset" value="Reset" onclick="location.href='listprod.php'"> (Leave blank for all products)
 		</form>
 
 		<?php
