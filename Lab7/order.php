@@ -48,7 +48,7 @@ if(!$result){
 }
 
 $custId = intval($custId);
-
+$orderId=0;
 /** Make connection and validate **/
 
 // oh fuck i did that earlier
@@ -74,7 +74,7 @@ $orderDate = date('Y-m-d H:i:s');
 $sql = "INSERT INTO ordersummary (customerId, totalAmount, orderDate) OUTPUT INSERTED.orderId VALUES(?, 0, ?);";
 $result = sqlsrv_query($con, $sql, array($custId, $orderDate));
 
-if(!$result){
+if(!sqlsrv_fetch($result)){
 	die("idk the query didn't insert or something. idk how to fix that");
 }
 
@@ -108,7 +108,7 @@ foreach($productList as $id => $product){
 	$sql = "INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (?, ?, ?, ?);";
 	$result = sqlsrv_query($con, $sql, array($orderId, $product_id, $product_quantity, $product['price']));
 	 if(!$result){
-	 	die("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
+	 	echo("the ordered product didn't insert so i think thats whats wrong but idk maybe i forgot a semicolon");
 	 }
 
 	// update the total
