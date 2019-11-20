@@ -10,7 +10,7 @@
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
 	}
-	$fileName = "./data/orderdb_sql.ddl";
+	$fileName = "./data/pokemon_db.ddl";
 	$file = file_get_contents($fileName, true);
 	$lines = explode(";", $file);
 	echo("<ol>");
