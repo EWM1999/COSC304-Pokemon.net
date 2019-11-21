@@ -30,15 +30,17 @@ $userId = $_SESSION['authenticatedUser'];
 
 $con = sqlsrv_connect($server, $connectionInfo);
 
-$sql = "SELECT orderDate, SUM(totalAmount) as total FROM ordersummary, customer WHERE customer.customerId = ordersummary.customerId AND customer.userid = ? GROUP BY orderDate ORDER BY orderDate DESC;";
+$sql = "SELECT orderDate, SUM(totalAmount) as total FROM ordersummary GROUP BY orderDate ORDER BY orderDate DESC;";
 $result = sqlsrv_query($con, $sql, array($userId));
 
 if(!$result){
     die('<p> i brok the query sorry fam i really thought that would work</p>');
 }
 
+echo("<h3>Sales by Day</h3>");
+
 echo('<table border = \"2\">');
-echo('<th><td>Order Date</td><td>Total Order Amount</td></th>');
+echo('<tr><th>Order Date</th><th>Total Order Amount</th></tr>');
 
 while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
     $orderDate = $row['orderDate'];
@@ -53,3 +55,4 @@ sqlsrv_close($con);
 ?>
 </body>
 </html>
+

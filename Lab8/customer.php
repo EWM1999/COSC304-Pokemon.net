@@ -112,9 +112,11 @@ $user = $_SESSION['authenticatedUser'];
 echo "<img src='https://i.imgur.com/LH65A0E.png' border='0'>";
 
 $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid from customer where userid = ?";
-$results = sqlsrv_prepare($con, $sql, array($user));
+$results = sqlsrv_query($con, $sql, array($user));
+#echo('<h3>Customer Information</h3>');
+#echo('test');
 if($rst = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)){
-	echo("<table border = \"2\"> <tr><td>Id</td><td>".$rst['customerId']."</td></tr><tr><td>First Name</td><td>".$rst['firstName']."</td></tr><tr><td>Last Name</td><td>".$rst['lastName']."</td></tr><tr><td>Email</td><td>".$rst['email']."<tr><td>Phone</td><td>".$rst['phone']."</td></tr><tr><td>Address</td><td>".$rst['aadress']."</td></tr><tr><td>City</td><td>".$rst['city']."</td></tr><tr><td>State</td><td>".$rst['state']."</td></tr><tr><td>Postal Code</td><td>".$rst['postalCode']."</td></tr><tr><td>Country</td><td>".$rst['country']."</td></tr><tr><td>User Id</td><td>".$rst['userid']."</td></tr></table>");
+	echo("<table border = \"2\"> <tr><td>Id</td><td>".$rst['customerId']."</td></tr><tr><td>First Name</td><td>".$rst['firstName']."</td></tr><tr><td>Last Name</td><td>".$rst['lastName']."</td></tr><tr><td>Email</td><td>".$rst['email']."<tr><td>Phone</td><td>".$rst['phonenum']."</td></tr><tr><td>Address</td><td>".$rst['address']."</td></tr><tr><td>City</td><td>".$rst['city']."</td></tr><tr><td>State</td><td>".$rst['state']."</td></tr><tr><td>Postal Code</td><td>".$rst['postalCode']."</td></tr><tr><td>Country</td><td>".$rst['country']."</td></tr><tr><td>User Id</td><td>".$rst['userid']."</td></tr></table>");
 }
 sqlsrv_free_stmt($results);
 sqlsrv_close($con);

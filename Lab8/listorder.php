@@ -97,7 +97,7 @@
   </head>
 <body>
 
-<h1><img src="https://i.imgur.com/idZzv7Z.png" border="0"></h1>
+
 
 <?php
 
@@ -122,7 +122,9 @@ Useful code for formatting currency:
 
 
 /** Close connection **/
+include 'header.php';
 	include 'include/db_credentials.php';
+  echo('<img src="https://i.imgur.com/idZzv7Z.png" border="0">');
 	$con = sqlsrv_connect($server, $connectionInfo);
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
