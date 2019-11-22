@@ -111,7 +111,7 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="shop.html">Home</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
                 <li><a href="listorder.php">List All Orders</a></li>
                 <li><a href="listprod.php">Start Shopping</a></li>
                 <li><a href="customer.php">Customer Info</a></li>

@@ -79,6 +79,22 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+      table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+
+  th, td {
+      text-align: left;
+      padding: 8px;
+  }
+
+  tr{background-color: #494948}
+
+  th {
+      background-color: #FFCB05;
+      color: #494948;
+  }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 

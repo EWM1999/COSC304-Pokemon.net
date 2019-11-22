@@ -80,6 +80,22 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+      table {
+      border-collapse: collapse;
+      width: 50%;
+  }
+
+  th, td {
+      text-align: right;
+      padding: 8px;
+  }
+
+  tr{background-color: #494948}
+
+  th {
+      background-color: #FFCB05;
+      color: #494948;
+  }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -132,7 +148,7 @@ include 'header.php';
 	$orderId = 0;
 	$sql = "SELECT orderId, orderDate, C.customerId, firstName+' '+lastName as cname, totalAmount FROM ordersummary O, customer C WHERE O.customerId = C.customerId";
 	$results = sqlsrv_query($con, $sql, array());
-	echo("<table border = \"2\"><tr><th>Order Id</th><th>Order Date</th><th> Customer Id</th><th>Customer Name</th><th>Total Amount</th></tr>");
+	echo("<table border = \"2\" style = 'width: 100%'><tr><th>Order Id</th><th>Order Date</th><th> Customer Id</th><th>Customer Name</th><th>Total Amount</th></tr>");
 	$sql2 = "SELECT productId, quantity, price from orderproduct where orderId = ?";
 	$result2 = sqlsrv_prepare($con, $sql2, array(&$orderId));
 	if(!$results){
@@ -144,7 +160,7 @@ include 'header.php';
 		$orderDate = $row['orderDate'];
 		echo("<tr><td>" . $orderId . "</td><td>" . $orderDate->format('Y-m-d H:i:s') . "</td><td>" . $row['customerId'] . "</td><td>" . $row['cname'] . "</td><td>$".number_format($row['totalAmount'],2). "</td></tr>");
 		sqlsrv_execute($result2);
-		echo("<tr align = \"right\"><td = colspan = \"5\"><table border = \"2\">");
+		echo("<tr align = \"right\"><td = colspan = \"5\"><table border = \"2\" style = 'float: right'>");
 		echo("<th>Product Id</th><th>Quantity</th><th>Price</th></tr>");
 		while($row2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
 			echo("<tr><td>".$row2['productId']."</td>");
