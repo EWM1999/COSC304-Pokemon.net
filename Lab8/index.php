@@ -102,6 +102,12 @@
   </head>
 
   <body>
+     <?php 
+    session_start();
+    if (isset($_SESSION['authenticatedUser']))  
+        echo "<h3 align=\"center\">Signed in as: " . $_SESSION['authenticatedUser'] . "</h3>";
+    // TODO: Display user name that is logged in (or nothing if not logged in)  
+?>
 
     <div class="container">
 
@@ -154,10 +160,7 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-   <?php 
-    session_start();
-    // TODO: Display user name that is logged in (or nothing if not logged in)  
-?>
+
 
   </body>
 </html>
