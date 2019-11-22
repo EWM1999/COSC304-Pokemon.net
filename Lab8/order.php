@@ -79,6 +79,22 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+      table {
+      border-collapse: collapse;
+      width: 50%;
+  }
+
+  th, td {
+      text-align: left;
+      padding: 8px;
+  }
+
+  tr{background-color: #494948}
+
+  th {
+      background-color: #FFCB05;
+      color: #494948;
+  }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -171,7 +187,7 @@ if(!sqlsrv_fetch($result)){
 
 $orderId = sqlsrv_get_field($result,0);
 
-echo("<h1>Your Order Summary</h1>");
+echo('<img src="https://i.imgur.com/SYl1PF8.png" border="0">');
 echo("<table border = \"2\">");
 echo("<tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
 
@@ -231,7 +247,7 @@ if(!$result){
 
 /** Print out order summary **/
 
-echo("Order Complete :) :). Your pokemon will be wired to you shortly<br>");
+echo("\nOrder Complete :) :). Your pokemon will be wired to you shortly<br>");
 echo("Your order reference is: ".$orderId."<br>");
 echo("We are shipping to Pokemon Trainer ".$customer_name." with id ".$custId."<br>");
 echo("friendly reminder that animal fighting is a crime :)");
