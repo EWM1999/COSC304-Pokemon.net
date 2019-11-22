@@ -123,7 +123,7 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
     //  Image retreival with URL
     $imageLoc = $rst['productImageURL'];
         if ($imageLoc != null)
-            echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\">";
+            echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\" style = 'max-width: 50%'>";
     echo "</table>";
 
     // Image retreival from database
