@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Pokemon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Pokemon.net</title>
 <link href="bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -78,26 +79,34 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
-</head>
-<body>
-<h1><<img src="https://i.imgur.com/cPbtQw3.png" border="0"></h1>
+    </head>
+	<body>
+       
 <?php 
     include 'header.php';
     include 'include/db_credentials.php';
 ?>
+<h2><img src="https://i.imgur.com/cPbtQw3.png"  border="0"></h2>
 
 <?php
+include 'include/db_credentials.php';
 // Retrieve and display info for the product
 // $id = $_GET['id'];
-$sql = "SELECT productId, productName, productPrice, productImageURL, productImage FROM Product P WHERE productId = ?";
-$id = $_GET['id'];
+$sql = "SELECT productId, productName, productPrice, productDesc, productImageURL, productImage FROM Product P WHERE productId = ?";
+
+// $id = $_GET['productId'];
+$id = ""; //Error here Notice: Undefined index: id in /srv/home/91175448/public_html/lab8/product.php on line 95 Invalid product
+if (isset($_GET['productId'])){
+    $id = $_GET['productId'];
+}
+else{
+    print("Can I get uhhhh");
+}
 
 $con = sqlsrv_connect($server, $connectionInfo);
-if($con == false){
-    die(print_r(sqlsrv_errors(), true));
-}
 $pstmt = sqlsrv_query($con, $sql, array($id));
 
 $sql = "";
@@ -105,22 +114,23 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
 {
     echo "<h2>" . $rst['productName'] . "</h2>";
     $prodId = $rst['productId'];
+    $prodDesc = $rst['productDesc'];
     echo "<table><tr>";
     echo "<th>Id</th><td>" . $prodId . "</td></tr>"
-        . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>";
-    
-    //  Retrieve any image with a URL
+        . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>" 
+        ."<th>Description</th><td>" . $prodDesc . "</td></tr>";
+     
+    //  Image retreival with URL
     $imageLoc = $rst['productImageURL'];
-    if ($imageLoc != null)
-        echo "<img src=\"" . $imageLoc . "\">";
-        
-    // Retrieve any image stored directly in database
+        if ($imageLoc != null)
+            echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\">";
+    echo "</table>";
+
+    // Image retreival from database
     $imageBinary = $rst['productImage'];
     if ($imageBinary != null)
-        echo "<img src=\"displayImage.php?id=" . $prodId . "\">";
-    
+        echo "<img src=\"displayImage.php?id=" . $prodId . "\" alt = \"".$rst['productName']."\">";
     echo "</table>";
-        
         
     echo "<h3><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
             . "&price=" . $rst['productPrice'] . "\">Add to Cart</a></h3>";
