@@ -82,15 +82,17 @@
 
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
-</head>
-<body>
+    </head>
+	<body>
+       
 <?php 
     include 'header.php';
     include 'include/db_credentials.php';
 ?>
-<h3><img src="https://i.imgur.com/BGpqftR.png" border="0"></h3>
+<h2><img src="https://i.imgur.com/AZOk0XJ.png" border="0"></h2>
 
 <?php
+include 'include/db_credentials.php';
 // Retrieve and display info for the product
 // $id = $_GET['id'];
 $sql = "SELECT productId, productName, productPrice, productDesc, productImageURL, productImage FROM Product P WHERE productId = ?";
@@ -118,10 +120,16 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
         . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>" 
         ."<th>Description</th><td>" . $prodDesc . "</td></tr>";
      
-    //  Retrieving image using URL 
+    //  Image retreival with URL
     $imageLoc = $rst['productImageURL'];
         if ($imageLoc != null)
             echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\">";
+    echo "</table>";
+
+    // Image retreival from database
+    $imageBinary = $rst['productImage'];
+    if ($imageBinary != null)
+        echo "<img src=\"displayImage.php?id=" . $prodId . "\" alt = \"".$rst['productName']."\">";
     echo "</table>";
         
     echo "<h3><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
