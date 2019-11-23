@@ -252,7 +252,7 @@ UPDATE Product SET productImageURL = 'img/Parasect.jpg' WHERE productName = 'Par
 UPDATE Product SET productImageURL = 'img/Bellossom.jpg' WHERE productName = 'Bellossom';
 UPDATE Product SET productImageURL = 'img/Hoothoot.jpg' WHERE productName = 'Hoothoot';
 UPDATE Product SET productImageURL = 'img/Electrike.jpg' WHERE productName = 'Electrike';
-UPDATE Product SET productImageURL = 'img/Beedrill.jpg' WHERE productName = 'Beedrill';
+#UPDATE Product SET productImageURL = 'img/Beedrill.jpg' WHERE productName = 'Beedrill';
 UPDATE Product SET productImageURL = 'img/Pikachu.jpg' WHERE productName = 'Pikachu';
 UPDATE Product SET productImageURL = 'img/Pidgey.jpg' WHERE productName = 'Pidgey';
 UPDATE Product SET productImageURL = 'img/Gothita.jpg' WHERE productName = 'Gothita';
