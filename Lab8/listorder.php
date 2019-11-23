@@ -150,7 +150,6 @@
         }
         echo("<br></div>");
     ?>
-    ?>
 
     <div class="container">
 
@@ -162,6 +161,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li class="active"><a href="listorder.php">List All Orders</a></li>
                 <li><a href="listprod.php">Start Shopping</a></li>
+                <li><a href="aboutus.php">About Us</a></li>
               </ul>
             </div>
           </div>

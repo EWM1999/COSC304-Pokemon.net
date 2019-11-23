@@ -160,6 +160,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="listorder.php">List All Orders</a></li>
                 <li class="active"><a href="listprod.php">Start Shopping</a></li>
+                <li><a href="aboutus.php">About Us</a></li>
               </ul>
             </div>
           </div>
