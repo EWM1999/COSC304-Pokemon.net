@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Pokémon CheckOut Line</title>
-<link href="bootstrap.css" rel="stylesheet">
+<title>Your Shopping Cart</title>
+ <link href="bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 20px;
@@ -78,22 +78,6 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
-      table {
-      border-collapse: collapse;
-      width: 100%;
-  }
-
-  th, td {
-      text-align: left;
-      padding: 8px;
-  }
-
-  tr{background-color: #494948}
-
-  th {
-      background-color: #FFCB05;
-      color: #494948;
-  }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -111,14 +95,38 @@
   </head>
 <body>
 
-<h1>Enter your customer id and password to complete the transaction:</h1>
+<?php
+// Get the current list of products
+session_start();
+$productList = null;
+if (isset($_SESSION['productList'])){
+	$productList = $_SESSION['productList'];
+	echo("<h1><img src='https://i.imgur.com/iGaHTLA.png' border='0'></h1>");
+	echo("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	echo("<th>Price</th><th>Subtotal</th></tr>");
 
-<form method="POST" action="order.php">
-<input type="text" name="customerId" size="50" required>
-<input type="password" name="password" size="30" required>
-<input type="submit" value="Submit">
-<input type="reset" value="Reset">
-</form>
+	$total =0;
+	foreach ($productList as $id => $prod) {
+		echo("<tr><td>". $prod['id'] . "</td>");
+		echo("<td>" . $prod['name'] . "</td>");
 
+		echo("<td align=\"center\">". $prod['quantity'] . "</td>");
+		$price = $prod['price'];
+
+		echo("<td align=\"right\">$" . number_format($price ,2) ."</td>");
+		echo("<td align=\"right\">$" . number_format($prod['quantity']*$price, 2) . "</td></tr>");
+		echo("</tr>");
+		$total = $total +$prod['quantity']*$price;
+	}
+	echo("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td align=\"right\">$" . number_format($total,2) ."</td></tr>");
+	echo("</table>");
+
+	echo("<h2><a href=\"checkout.php\">Check Out</a></h2>");
+} else{
+	echo("<H1>Your shopping cart is empty!</H1>");
+}
+?>
+<h2><a href="listprod.php">Continue Shopping</a></h2>
 </body>
-</html>
+</html> 
+

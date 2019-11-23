@@ -102,6 +102,12 @@
   </head>
 
   <body>
+     <?php 
+    session_start();
+    if (isset($_SESSION['authenticatedUser']))  
+        echo "<h3 align=\"center\">Signed in as: " . $_SESSION['authenticatedUser'] . "</h3>";
+    // TODO: Display user name that is logged in (or nothing if not logged in)  
+?>
 
     <div class="container">
 
@@ -111,7 +117,7 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="shop.html">Home</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
                 <li><a href="listorder.php">List All Orders</a></li>
                 <li><a href="listprod.php">Start Shopping</a></li>
                 <li><a href="customer.php">Customer Info</a></li>
@@ -154,10 +160,7 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-   <?php 
-    session_start();
-    // TODO: Display user name that is logged in (or nothing if not logged in)  
-?>
+
 
   </body>
 </html>
