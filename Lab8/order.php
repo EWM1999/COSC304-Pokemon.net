@@ -187,7 +187,7 @@ if(!sqlsrv_fetch($result)){
 
 $orderId = sqlsrv_get_field($result,0);
 
-echo('<img src="https://i.imgur.com/SYl1PF8.png" border="0">');
+echo('<h1><img src="https://i.imgur.com/SYl1PF8.png" border="0"></h1>');
 echo("<table border = \"2\">");
 echo("<tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
 
@@ -246,8 +246,8 @@ if(!$result){
 // im not going to do it
 
 /** Print out order summary **/
-
-echo("\nOrder Complete :) :). Your pokemon will be wired to you shortly<br>");
+echo("");
+echo("Order Complete :) :). Your pokemon will be wired to you shortly<br>");
 echo("Your order reference is: ".$orderId."<br>");
 echo("We are shipping to Pokemon Trainer ".$customer_name." with id ".$custId."<br>");
 echo("friendly reminder that animal fighting is a crime :)");
