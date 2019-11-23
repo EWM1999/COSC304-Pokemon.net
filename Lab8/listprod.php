@@ -94,9 +94,7 @@
   		    text-align: left;
   		    padding: 8px;
 	    }
-	    tr{
-        background-color: #494948;
-      }
+	    tr{background-color: #494948}
 	    th {
   		    background-color: #FFCB05;
   		    color: #494948;

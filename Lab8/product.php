@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,7 +9,10 @@
         padding-top: 20px;
         padding-bottom: 60px;
       }
-
+      .login_things{
+          text-align: right;
+          color: #FFCB05;
+      }
       /* Custom container */
       .container {
         margin: 0 auto;
@@ -84,6 +87,21 @@
           color: #FFCB05;
       }
 
+      table {
+  		    border-collapse: collapse;
+  		    width: 40%;
+          margin: 2%;
+	    }
+	    th, td {
+  		    text-align: left;
+  		    padding: 8px;
+	    }
+	    tr{background-color: #494948}
+	    th {
+  		    background-color: #FFCB05;
+  		    color: #494948;
+	    }
+
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
     </head>
@@ -94,13 +112,13 @@
     echo("<div class=\"container\">");
     echo('<h1 style="float:left"><img src="https://i.imgur.com/AZOk0XJ.png" border="0"></h1>');
     if(isset($_SESSION['authenticatedUser'])){
-      // they're logged in :)
+      // they're logged in 🙂
       echo("<div class=\"login_things\">");
       echo("<h5 style=\"color:#EAEBED\">Logged in as: ".$_SESSION['authenticatedUser']."</h5>");
       // then they should be able to see their info and logout
       echo("<a class=\"login_things\" href=\"customer.php\">Customer Info</a><br>");
       if(True){
-          // they're an admin user :)
+          // they're an admin user 🙂
           // and have access to the admin page
           echo("<a class=\"login_things\" href=\"admin.php\">Administrator</a><br>");
       }
@@ -139,27 +157,30 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
     echo "<h2>" . $rst['productName'] . "</h2>";
     $prodId = $rst['productId'];
     $prodDesc = $rst['productDesc'];
-    echo "<table><tr>";
-    echo "<th>Id</th><td>" . $prodId . "</td></tr>"
-        . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>" 
-        ."<th>Description</th><td>" . $prodDesc . "</td></tr>";
      
     //  Image retreival with URL
     $imageLoc = $rst['productImageURL'];
         if ($imageLoc != null)
-            echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\" style = 'max-width: 50%'>";
-    echo "</table>";
+            echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\" style = 'max-width: 50%; border-radius: 50%; margin: 2%; float: left'>";
+        echo "</table>";
 
     // Image retreival from database
     $imageBinary = $rst['productImage'];
     if ($imageBinary != null)
         echo "<img src=\"displayImage.php?id=" . $prodId . "\" alt = \"".$rst['productName']."\">";
     echo "</table>";
+    
+    echo("<table border = \"1\" style = 'float: right'>");
+    echo "<th>Id</th><td>" . $prodId . "</td></tr>"
+        . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>" 
+        ."<th>Description</th><td>" . $prodDesc . "</td></tr>";
+    echo "<table><tr>";
+
         
-    echo "<h3><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
-            . "&price=" . $rst['productPrice'] . "\">Add to Cart</a></h3>";
+    echo "<h4><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
+            . "&price=" . $rst['productPrice'] . "\" style = 'float: right; margin: 2%; color: #EAEBED'>Add to Cart</a></h4>";
         
-    echo "<h3><a href=\"listprod.php\">Continue Shopping</a>";    
+    echo "<h4><a href=\"listprod.php\" style = 'float: right; margin: 2%; color: #EAEBED'>Continue Shopping</a></h4>";    
 }
 else
 {
