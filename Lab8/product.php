@@ -111,8 +111,6 @@
 	echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
       }
     echo("<br></div>");
-
-    include 'header.php';
   ?>
        
 <?php 
