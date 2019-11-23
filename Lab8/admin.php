@@ -78,6 +78,12 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+
+     .login_things{
+          text-align: right;
+          color: #FFCB05;
+      }
+
       table {
   		border-collapse: collapse;
   		width: 100%;
@@ -109,57 +115,89 @@
                     <link rel="apple-touch-icon-precomposed" href="../bootstrap/ico/apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
-<body>
-
-<?php 
-// TODO: Include files auth.php and include/db_credentials.php
-include 'include/db_credentials.php';
-include 'header.php';
-include 'auth.php'
-
-?>
-
-<?php
-// TODO: Write SQL query that prints out total order amount by day
-
-/*
-
-SELECT SUM(totalAmount) as total_order_amount
-FROM ordersummary
-GROUP BY orderDate
-ORDER BY orderDate DESC;
+  <body>
 
 
-ughhh i want to save the customerId so i don't have to joinnnn
+    <div class="container">
+        <h3 class="muted">Pokémon.net</h3>
+      </div>
 
-*/
-$userId = $_SESSION['authenticatedUser'];
+    <div class="container">
+    <h1 style="float:left"><img src="https://i.imgur.com/YVBAWvk.png" border="0"></h1>
+    <?php
+      include 'auth.php';
+    
+      // FIXME: doesn't include?
+      // i think it can't actually see it
+      // include 'loginDetails.php';
 
-$con = sqlsrv_connect($server, $connectionInfo);
+      if(isset($_SESSION['authenticatedUser'])){
+        // they're logged in :)
+        echo("<div class=\"login_things\">");
+        echo("<h5 style=\"color:#EAEBED\">Logged in as: ".$_SESSION['authenticatedUser']."</h5>");
+        // then they should be able to see their info and logout
+        echo("<a class=\"login_things\" href=\"customer.php\">Customer Info</a><br>");
+        if(True){
+            // they're an admin user :)
+            // and have access to the admin page
+            echo("<a class=\"login_things\" href=\"admin.php\">Administrator</a><br>");
+        }
+        echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a>");
+        echo("</div>");
+      }else{
+        // they aren't logged in
+        echo("<div><a href=\"login.php\">Log In</a></div>");
+        }
+    ?>
 
-$sql = "SELECT orderDate, SUM(totalAmount) as total FROM ordersummary GROUP BY orderDate ORDER BY orderDate DESC;";
-$result = sqlsrv_query($con, $sql, array($userId));
-
-if(!$result){
-    die('<p> i brok the query sorry fam i really thought that would work</p>');
-}
-
-echo('<img src="https://i.imgur.com/YVBAWvk.png" border="0">');
-
-echo('<table border = \"2\">');
-echo('<tr><th>Order Date</th><th>Total Order Amount</th></tr>');
-
-while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-    $orderDate = $row['orderDate'];
-    $total = $row['total'];
-    echo('<tr><td>'.$orderDate->format('Y-m-d H:i:s')."</td><td>".$total."</td></tr>");
-}
-echo("</table>");
-
-sqlsrv_close($con);
+    <br></div>
 
 
-?>
-</body>
+    <?php 
+      include 'header.php';
+      include 'include/db_credentials.php';
+    ?>
+
+    <?php
+    // TODO: Write SQL query that prints out total order amount by day
+
+    /*
+
+    SELECT SUM(totalAmount) as total_order_amount
+    FROM ordersummary
+    GROUP BY orderDate
+    ORDER BY orderDate DESC;
+
+
+    ughhh i want to save the customerId so i don't have to joinnnn
+
+    */
+    $userId = $_SESSION['authenticatedUser'];
+
+    $con = sqlsrv_connect($server, $connectionInfo);
+
+    $sql = "SELECT orderDate, SUM(totalAmount) as total FROM ordersummary GROUP BY orderDate ORDER BY orderDate DESC;";
+    $result = sqlsrv_query($con, $sql, array($userId));
+
+    if(!$result){
+        die('<p> i brok the query sorry fam i really thought that would work</p>');
+    }
+
+
+    echo('<table border = \"2\">');
+    echo('<tr><th>Order Date</th><th>Total Order Amount</th></tr>');
+
+    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+        $orderDate = $row['orderDate'];
+        $total = $row['total'];
+        echo('<tr><td>'.$orderDate->format('Y-m-d H:i:s')."</td><td>".$total."</td></tr>");
+    }
+    echo("</table>");
+
+    sqlsrv_close($con);
+
+
+    ?>
+  </body>
 </html>
 

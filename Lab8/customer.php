@@ -78,6 +78,12 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+
+      .login_things{
+          text-align: right;
+          color: #FFCB05;
+      }
+
       table {
       border-collapse: collapse;
       width: 100%;
@@ -109,34 +115,61 @@
                     <link rel="apple-touch-icon-precomposed" href="../bootstrap/ico/apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
-<body>
+  <body>
 
-<?php 
+    <div class="container">
+        <h3 class="muted">Pokémon.net</h3>
+    </div>
+
+  <?php
     include 'auth.php';
+    echo("<div class=\"container\">");
+    echo('<h1 style="float:left"><img src="https://i.imgur.com/LH65A0E.png" border="0"></h1>');
+    if(isset($_SESSION['authenticatedUser'])){
+      // they're logged in :)
+      echo("<div class=\"login_things\">");
+      echo("<h5 style=\"color:#EAEBED\">Logged in as: ".$_SESSION['authenticatedUser']."</h5>");
+      // then they should be able to see their info and logout
+      echo("<a class=\"login_things\" href=\"customer.php\">Customer Info</a><br>");
+      if(True){
+          // they're an admin user :)
+          // and have access to the admin page
+          echo("<a class=\"login_things\" href=\"admin.php\">Administrator</a><br>");
+      }
+      echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a>");
+      echo("</div>");
+    }else{
+      // they aren't logged in
+	echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
+      }
+    echo("<br></div>");
+
     include 'header.php';
-    include 'include/db_credentials.php';
-	$con = sqlsrv_connect($server, $connectionInfo);
-	if( $con === false ) {
-		die( print_r( sqlsrv_errors(), true));
-	}
-?>
+  ?>
 
-<?php
-$user = $_SESSION['authenticatedUser'];
-    
-// TODO: Print Customer information
-echo "<img src='https://i.imgur.com/LH65A0E.png' border='0'>";
 
-$sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid from customer where userid = ?";
-$results = sqlsrv_query($con, $sql, array($user));
-#echo('<h3>Customer Information</h3>');
-#echo('test');
-if($rst = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)){
-	echo("<table border = \"2\"> <tr><td>Id</td><td>".$rst['customerId']."</td></tr><tr><td>First Name</td><td>".$rst['firstName']."</td></tr><tr><td>Last Name</td><td>".$rst['lastName']."</td></tr><tr><td>Email</td><td>".$rst['email']."<tr><td>Phone</td><td>".$rst['phonenum']."</td></tr><tr><td>Address</td><td>".$rst['address']."</td></tr><tr><td>City</td><td>".$rst['city']."</td></tr><tr><td>State</td><td>".$rst['state']."</td></tr><tr><td>Postal Code</td><td>".$rst['postalCode']."</td></tr><tr><td>Country</td><td>".$rst['country']."</td></tr><tr><td>User Id</td><td>".$rst['userid']."</td></tr></table>");
-}
-sqlsrv_free_stmt($results);
-sqlsrv_close($con);
-// Make sure to close connection
-?>
-</body>
+  <?php 
+      include 'include/db_credentials.php';
+    $con = sqlsrv_connect($server, $connectionInfo);
+    if( $con === false ) {
+      die( print_r( sqlsrv_errors(), true));
+    }
+  ?>
+
+  <?php
+
+  // print user information
+  $user = $_SESSION['authenticatedUser'];
+  $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid from customer where userid = ?";
+  $results = sqlsrv_query($con, $sql, array($user));
+  #echo('<h3>Customer Information</h3>');
+  #echo('test');
+  if($rst = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)){
+    echo("<table border = \"2\"> <tr><td>Id</td><td>".$rst['customerId']."</td></tr><tr><td>First Name</td><td>".$rst['firstName']."</td></tr><tr><td>Last Name</td><td>".$rst['lastName']."</td></tr><tr><td>Email</td><td>".$rst['email']."<tr><td>Phone</td><td>".$rst['phonenum']."</td></tr><tr><td>Address</td><td>".$rst['address']."</td></tr><tr><td>City</td><td>".$rst['city']."</td></tr><tr><td>State</td><td>".$rst['state']."</td></tr><tr><td>Postal Code</td><td>".$rst['postalCode']."</td></tr><tr><td>Country</td><td>".$rst['country']."</td></tr><tr><td>User Id</td><td>".$rst['userid']."</td></tr></table>");
+  }
+  sqlsrv_free_stmt($results);
+  sqlsrv_close($con);
+  // Make sure to close connection
+  ?>
+  </body>
 </html>

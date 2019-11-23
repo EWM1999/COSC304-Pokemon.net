@@ -80,6 +80,12 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+
+     .login_things{
+          text-align: right;
+          color: #FFCB05;
+        }
+
       table {
       border-collapse: collapse;
       width: 50%;
@@ -97,6 +103,7 @@
       color: #494948;
   }
     </style>
+
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -111,9 +118,55 @@
                     <link rel="apple-touch-icon-precomposed" href="../bootstrap/ico/apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
-<body>
+  <body>
+
+    <div class="container">
+        <h3 class="muted">Pokémon.net</h3>
+    </div>
 
 
+    <?php 
+      session_start();
+      echo("<div class=\"container\">");
+      echo('<h1 style="float:left"><img src="https://i.imgur.com/idZzv7Z.png" border="0"></h1>');
+      
+      if(isset($_SESSION['authenticatedUser'])){
+        // they're logged in :)
+        echo("<div class=\"login_things\">");
+        echo("<h5 style=\"color:#EAEBED\">Logged in as: ".$_SESSION['authenticatedUser']."</h5>");
+        // then they should be able to see their info and logout
+        echo("<a class=\"login_things\" href=\"customer.php\">Customer Info</a><br>");
+        if(True){
+            // they're an admin user :)
+            // and have access to the admin page
+            echo("<a class=\"login_things\" href=\"admin.php\">Administrator</a><br>");
+        }
+        echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a>");
+        echo("</div>");
+      }else{
+        // they aren't logged in
+        echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
+
+        }
+        echo("<br></div>");
+    ?>
+    ?>
+
+    <div class="container">
+
+      <div class="masthead">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li><a href="index.php">Home</a></li>
+                <li class="active"><a href="listorder.php">List All Orders</a></li>
+                <li><a href="listprod.php">Start Shopping</a></li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /.navbar -->
+      </div>
 
 <?php
 
@@ -138,9 +191,8 @@ Useful code for formatting currency:
 
 
 /** Close connection **/
-include 'header.php';
+/** include 'header.php'; **/
 	include 'include/db_credentials.php';
-  echo('<img src="https://i.imgur.com/idZzv7Z.png" border="0">');
 	$con = sqlsrv_connect($server, $connectionInfo);
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
@@ -175,4 +227,3 @@ include 'header.php';
 ?>
 </body>
 </html>
-
