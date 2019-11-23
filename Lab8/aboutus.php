@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Pokémon.net &middot;</title>
+    <title>About Us &middot;</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -102,12 +102,6 @@
   </head>
 
   <body>
-     <?php 
-    session_start();
-    if (isset($_SESSION['authenticatedUser']))  
-        echo "<h3 align=\"center\">Signed in as: " . $_SESSION['authenticatedUser'] . "</h3>";
-    // TODO: Display user name that is logged in (or nothing if not logged in)  
-?>
 
     <div class="container">
 
@@ -131,31 +125,27 @@
       </div>
 
       <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h1><img src="https://i.imgur.com/Pqa1zkt.png" border="0"></h1>
-        <a class="btn btn-large btn-success" href="listprod.php">Get started today</a>
-      </div>
 
-      <hr>
 
-      <!-- Example row of columns -->
-      <div class="row-fluid">
+      <h1><img src="https://i.imgur.com/EaMiZIY.png" border="0"></h1>
         <div class="span6">
-          <h2>What do we do?</h2>
-          <p>Pokémon.net is a web-based e-commerce site that allows trainers to complete their pokédex with ease at the click of a button. Unlike the troublesome endeavor the traditional hunting of pokémon is becoming with the surplus of trainers. Pokémon.net allows you to outshine those traditionalist and truly “catch ‘em all”™ for only a small fee, no walking necessary.
- </p>
-          <p><a class="btn" href="aboutus.php">View details &raquo;</a></p>
+          <h2>Why Do We Illegally Sell Pokémon?</h2>
+          <p>As Pokémon fans, we have always wanted to collect and capture Pokémon with ease. We almost achieved it when during a dislocated knee incident, one of our team was wheeled around playing Pokémon Go. BUT we knew we could make the process even easier for ALL trainers. Thus, Pokémon.net. </p>
         </div>
         <div class="span6">
-          <h2>Pokémons For the Discerning Collectors</h2>
-          <p>Our site features rare and exotic pokémon such as Mimikyu and Chaizard (a previously unseen Pokémon. Our site is the only place you will find such desirable pokémon while at ease in your home or office. </p>
-          <p><a class="btn" href="aboutus.php">View details &raquo;</a></p>
+          <h2>Our Goals</h2>
+          <p>Our goals for this site is to eventually integrate with Pokémon Go, generating a significant revenue for ourselves and Pokémon.</p>
+       </div>
+       <div class="span6">
+          <h2>Contact Us</h2>
+          <p>pokémon.pleasedontemailus.thisisaschoolproject.irepeataschoolproject.NOTREAL.weDONThavePOKEMON@gmail.com</p>
+       </div>
+       <div class="span8">
+          <h4>Please don't actually buy our Pokémon, we don't follow regulations. It is not safe for you. Also, animal fighting is a crime and who can hurt Eevee, they are precious.</h4>
+          <p>We don't actually have pokémon, sorry :(</p>          
        </div>
 
-      <hr>
-
-
-    </div> <!-- /container -->
+  > <!-- /container -->
 
     <!-- Le javascript
     ================================================== -->

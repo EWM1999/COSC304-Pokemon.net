@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -80,6 +80,21 @@
         border-radius: 0 3px 3px 0;
       }
 
+      table {
+  		    border-collapse: collapse;
+  		    width: 40%;
+          margin: 2%;
+	    }
+	    th, td {
+  		    text-align: left;
+  		    padding: 8px;
+	    }
+	    tr{background-color: #494948}
+	    th {
+  		    background-color: #FFCB05;
+  		    color: #494948;
+	    }
+
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
     </head>
@@ -115,27 +130,30 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
     echo "<h2>" . $rst['productName'] . "</h2>";
     $prodId = $rst['productId'];
     $prodDesc = $rst['productDesc'];
-    echo "<table><tr>";
-    echo "<th>Id</th><td>" . $prodId . "</td></tr>"
-        . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>" 
-        ."<th>Description</th><td>" . $prodDesc . "</td></tr>";
      
     //  Image retreival with URL
     $imageLoc = $rst['productImageURL'];
         if ($imageLoc != null)
-            echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\" style = 'max-width: 50%'>";
-    echo "</table>";
+            echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\" style = 'max-width: 50%; border-radius: 50%; margin: 2%; float: left'>";
+        echo "</table>";
 
     // Image retreival from database
     $imageBinary = $rst['productImage'];
     if ($imageBinary != null)
         echo "<img src=\"displayImage.php?id=" . $prodId . "\" alt = \"".$rst['productName']."\">";
     echo "</table>";
+    
+    echo("<table border = \"1\" style = 'float: right'>");
+    echo "<th>Id</th><td>" . $prodId . "</td></tr>"
+        . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>" 
+        ."<th>Description</th><td>" . $prodDesc . "</td></tr>";
+    echo "<table><tr>";
+
         
-    echo "<h3><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
-            . "&price=" . $rst['productPrice'] . "\">Add to Cart</a></h3>";
+    echo "<h4><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
+            . "&price=" . $rst['productPrice'] . "\" style = 'float: right; margin: 2%; color: #EAEBED'>Add to Cart</a></h4>";
         
-    echo "<h3><a href=\"listprod.php\">Continue Shopping</a>";    
+    echo "<h4><a href=\"listprod.php\" style = 'float: right; margin: 2%; color: #EAEBED'>Continue Shopping</a></h4>";    
 }
 else
 {
