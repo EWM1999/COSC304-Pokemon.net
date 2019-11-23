@@ -79,6 +79,10 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+      .login_things{
+          text-align: right;
+          color: #FFCB05;
+      }
 
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
