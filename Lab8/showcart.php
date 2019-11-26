@@ -78,6 +78,20 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+        table {
+          border-collapse: collapse;
+          width:77%; 
+          
+      }
+      th, td {
+          text-align: left;
+          padding: 8px;
+      }
+      tr{background-color: #494948}
+      th {
+          background-color: #FFCB05;
+          color: #494948;
+      }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -102,7 +116,7 @@ $productList = null;
 if (isset($_SESSION['productList'])){
 	$productList = $_SESSION['productList'];
 	echo("<h1><img src='https://i.imgur.com/iGaHTLA.png' border='0'></h1>");
-	echo("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	echo("<table border = \"1\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	echo("<th>Price</th><th>Subtotal</th></tr>");
 
 	$total =0;
