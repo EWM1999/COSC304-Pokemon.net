@@ -82,6 +82,10 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+      .login_things{
+          text-align: right;
+          color: #FFCB05;
+      }
 
       table {
   		    border-collapse: collapse;
@@ -102,7 +106,8 @@
     <link href="bootstrap-responsive.css" rel="stylesheet">
     </head>
 	<body>
- <?php
+
+  <?php
     session_start();
     echo("<div class=\"container\">");
     echo('<h1 style="float:left"><img src="https://i.imgur.com/AZOk0XJ.png" border="0"></h1>');
@@ -121,18 +126,15 @@
       echo("</div>");
     }else{
       // they aren't logged in
-  echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
+	echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
       }
     echo("<br></div>");
-  ?>      
+  ?>
+       
 <?php 
     include 'header.php';
     include 'include/db_credentials.php';
-?>
 
-
-<?php
-include 'include/db_credentials.php';
 // Retrieve and display info for the product
 // $id = $_GET['id'];
 $sql = "SELECT productId, productName, productPrice, productDesc, productImageURL, productImage FROM Product P WHERE productId = ?";
