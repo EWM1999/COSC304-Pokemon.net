@@ -166,8 +166,30 @@
       </div>
 
 		<form method="get" action="listprod.php">
+            <p align="left">
+                <select size="1" name="categoryName">
+                  <option>All</option>
+                  <option>Bug</option>
+                  <option>Dark</option>
+                  <option>Dragon</option>
+                  <option>Electric</option>
+                  <option>Fairy</option>
+                  <option>Fighting</option>
+                  <option>Fire</option>
+                  <option>Ghost</option> 
+                  <option>Grass</option>
+                  <option>Ground</option>
+                  <option>Ice</option>
+                  <option>Normal</option>
+                  <option>Poison</option>
+                  <option>Psychic</option> 
+                  <option>Rock</option>  
+                  <option>Steel</option>   
+                  <option>Water</option>
+                </select>
 		<input type="text" name="productName" size="50">
 		<input type="submit" value="Submit"><input type="reset" value="Reset" onclick="location.href='listprod.php'"> (Leave blank for all products)
+        </p>
     </form>
     
     <?php 
@@ -179,11 +201,21 @@
 			#include 'include/db_credentials.php';
 
 			$name = "";
+            $hasName = false;
 			/** Get product name to search for **/
 			if (isset($_GET['productName'])){
 				$name = $_GET['productName'];
+                if ($name != '')
+                    $hasName = true;
 			}
-
+            $category = "";
+            $hasCategory = false;
+            if (isset($_GET['categoryName'])){
+                $category = $_GET['categoryName'];
+                if ($category != 'All')
+                    $hasCategory = true;
+            }
+            $filter = "";
 			/** $name now contains the search string the user entered
 			 Use it to build a query and print out the results. **/
 
@@ -195,28 +227,41 @@
 			}
 			$result1 = null;
 			$sql = "";
-			if($name == ""){
-				$sql= "SELECT productId, productName, productPrice from product";
-				$result1 = sqlsrv_query($con, $sql, array());
-				if(!$result1){
-					echo("Bitch you thought");
-				}
-				echo("<h2>All Products</h2>");
+			if($hasName&&$hasCategory){
+                $filter = "<h3>Products containing '" . $name . "' in category: '" . $category . "'</h3>";
+                $name = '%' . $name . '%';
+                $sql = "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId WHERE productName LIKE ? AND categoryName = ?";
+                $result1 = sqlsrv_query($con, $sql, array( $name, $category ));
+                echo($filter);
 
-			}else{
+			}else if($hasName){
                 echo("<h2>Products containing '" . $name . "'</h2>");
-                $sql = "SELECT productId, productName, productPrice from product where productName LIKE ?";
+                $sql = "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId where productName LIKE ?";
                 $name = "%".$name."%";
                 $result1 = sqlsrv_query($con, $sql, array($name));
+                if(!$result1)
+                    echo("Bitch you thought");
+			}else if($hasCategory){
+                $filter = "<h3>Products in category: '" . $category . "'</h3>";
+                $sql = "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId WHERE categoryName = ?";
+                $result1 = sqlsrv_query($con, $sql, array( $category ));
+                echo($filter);
+            }else{
+                $sql= "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId";
+                $result1 = sqlsrv_query($con, $sql, array());
                 if(!$result1){
                     echo("Bitch you thought");
-			}
-		}
-		echo("<table border = \"1\"><tr><th>Add to Cart</th><th>Product Name</th><th>Price</th></tr>");
+                }
+                echo("<h2>All Products</h2>");
+            }
+
+		echo("<table border = \"1\"><tr><th>Add to Cart</th><th>Product Name</th><th>Price</th><th>Category</th></tr>");
 		while($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
             echo("<tr><td><a href =\"addcart.php?id=".$row['productId']."&name=".$row['productName']. "&price=" . $row['productPrice'] . "\" style = 'color: #FFCB05'>Add</a></td>");
             echo("<td><a href =\"product.php?productId=".$row['productId']."\" style = 'color: #FFCB05'>".$row['productName']."</a></td>");
-            echo("<td>".number_format($row['productPrice'],2)."</td></tr>");
+            echo("<td>".number_format($row['productPrice'],2)."</td>");
+            //$itemCategory = $row['categoryName'];
+            echo("<td>".$row['categoryName']."</td></tr>");
 		}
 		echo("</table>");
 		
@@ -239,7 +284,7 @@
 		sqlsrv_close($con);
 	?>
 
-    </div>
+</div>
 
 </body>
 </html>
