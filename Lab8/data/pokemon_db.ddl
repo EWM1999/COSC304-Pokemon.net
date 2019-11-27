@@ -196,11 +196,12 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Drat
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Roggenrola',15,'Roggenrola is a roughly spherical Pokémon discovered a century ago in an earthquake fissure.',39.93);
 
 
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test',1);
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Candace', 'Cole', 'cole@charity.org', '333-444-5555', '333 Central Crescent', 'Chicago', 'IL', '33333', 'United States', 'candace' , 'password');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Darren', 'Doe', 'oe@doe.com', '250-807-2222', '444 Dover Lane', 'Kelowna', 'BC', 'V1V 2X9', 'Canada', 'darren' , 'pw');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth' , 'test',1);
+/* Users */
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Samuel', 'Oak', 'profoak@kanto.edu', '204-111-2222', '103 Laboratory Street', 'Pallet Town', 'Kanto', 'R3X 45T', 'Canada', 'prof' , 'oak',1);
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Ash', 'Ketchem', 'ashthebash@pikachu.com', '572-342-8911', '222 Bush Avenue', 'Pallet Town', 'Kanto', '22222', 'United States', 'ash' , 'pikachu');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Gary', 'Oak', 'greatestgary@oak.org', '333-444-5555', '333 Central Crescent', 'Pallet Town', 'Kanto', '33333', 'United States', 'ggoak' , 'smellyalater');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Sapphire', 'Birch', 'sapphb@gmail.com', '250-807-2222', '444 Dover Lane', 'Littleroot Town', 'Hoenn', 'V1V 2X9', 'Canada', 'sapphire' , 'passpass');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Misty', 'Kasumi', 'watermisty@cerulean.gym', '555-666-7777', '555 Water Street', 'Cerulean City', 'Kanto', '52241', 'United States', 'mist' , 'pysduck',1);
 
 
 DECLARE @orderId int
@@ -211,9 +212,9 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId,
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 31);
 
 DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 106.75)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '1997-09-30 09:30:00', 0.00)
 SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 5, 21.35);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 13, 1, 0.00);
 
 DECLARE @orderId int
 INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 140)
