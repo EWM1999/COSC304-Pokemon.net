@@ -8,6 +8,7 @@
         echo("<h5 style=\"color:#EAEBED\">Logged in as: ".$_SESSION['authenticatedUser']."</h5>");
         // then they should be able to see their info and logout
         echo("<a class=\"login_things\" href=\"customer.php\">Customer Info</a><br>");
+        echo("<a class=\"login_things\" href=\"showcart.php\">Shopping Cart</a><br>");
         if($_SESSION["admin"] == 1){
             // they're an admin user :)
             // and have access to the admin page
