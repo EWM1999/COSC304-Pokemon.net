@@ -107,29 +107,13 @@
     </head>
 	<body>
 
+  <div class="container">
+  <h3 class="muted">Pokémon.net</h3>
+  <h1 style="float:left"><img src="https://i.imgur.com/AZOk0XJ.png" border="0"></h1>
   <?php
-    session_start();
-    echo("<div class=\"container\">");
-    echo('<h1 style="float:left"><img src="https://i.imgur.com/AZOk0XJ.png" border="0"></h1>');
-    if(isset($_SESSION['authenticatedUser'])){
-      // they're logged in 🙂
-      echo("<div class=\"login_things\">");
-      echo("<h5 style=\"color:#EAEBED\">Logged in as: ".$_SESSION['authenticatedUser']."</h5>");
-      // then they should be able to see their info and logout
-      echo("<a class=\"login_things\" href=\"customer.php\">Customer Info</a><br>");
-      if(True){
-          // they're an admin user 🙂
-          // and have access to the admin page
-          echo("<a class=\"login_things\" href=\"admin.php\">Administrator</a><br>");
-      }
-      echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a>");
-      echo("</div>");
-    }else{
-      // they aren't logged in
-	echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
-      }
-    echo("<br></div>");
+    include 'loginHeader.php';
   ?>
+  <br></div>
        
 <?php 
     include 'header.php';

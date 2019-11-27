@@ -113,25 +113,9 @@
   <body>
 	<div class = "container">
      <?php 
-    session_start();
-     if(isset($_SESSION['authenticatedUser'])){
-      // they're logged in :)
-      echo("<div class=\"login_things\">");
-      echo("<h4 class=\"login_things\">Logged in as: ".$_SESSION['authenticatedUser']."</h4>");
-      // then they should be able to see their info and logout
-      echo("<a class=\"login_things\" href=\"customer.php\">Customer Info</a><br>");
-      if(True){
-        // they're an admin user :)
-        // and have access to the admin page
-        echo("<a class=\"login_things\" href=\"admin.php\">Administrators</a><br>");
-      }
-      echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a>");
-      echo("</div>");
-    }else{
-      // they aren't logged in
-      echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
-    }
+    include 'loginHeader.php'
     ?>
+  <br>
 	</div>
 
     <div class="container">
@@ -146,12 +130,6 @@
                 <li><a href="listorder.php">List All Orders</a></li>
                 <li><a href="listprod.php">Start Shopping</a></li>
                 <li><a href="aboutus.php">About Us</a></li>
-		<!--
-                <li><a href="customer.php">Customer Info</a></li>
-                <li><a href="admin.php">Administrators</a></li>
-                 <li><a href="login.php">Login</a></li>
-                 <li><a href="logout.php">Log Out</a></li>
-		-->
               </ul>
             </div>
           </div>
