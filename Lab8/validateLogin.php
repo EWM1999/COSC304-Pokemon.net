@@ -22,13 +22,14 @@
 		$con = sqlsrv_connect($server, $connectionInfo);
 		
 		// TODO: Check if userId and password match some customer account. If so, set retStr to be the username.
-		$sql = "SELECT customerId FROM customer WHERE userid = ? AND password = ?;";	
+		$sql = "SELECT customerId, admin FROM customer WHERE userid = ? AND password = ?;";	
 		$stmt = sqlsrv_query($con, $sql, array($user, $pw));
 		if(!stmt)
 			die("<p>There has been an error in validating your account. I tried and I failed.</p>");
 		if($rst = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)){
 			// the userid and password fields aren't actually unique. You can have two of the same.
 			// so im just checking to see if there is someone.
+			$_SESSION['admin'] = $rst['admin'];
 			$retStr = $user;
 
 			// also I'm saving the customerId to the session because it would really speed up our queries

@@ -110,15 +110,28 @@
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
 <body>
+  <div class="container">
+    <?php 
+        session_start();  
+        if(isset($_SESSION['checkoutMessage'])){
+          if ($_SESSION['checkoutMessage']  != null)	
+              echo ("<p>" . $_SESSION['checkoutMessage'] . "</p>");
+          }
 
-<h1>Enter your customer id and password to complete the transaction:</h1>
+        include 'loginHeader.php';
+        include 'header.php';
+    ?>
 
-<form method="POST" action="order.php">
-<input type="text" name="customerId" size="50" required>
-<input type="password" name="password" size="30" required>
-<input type="submit" value="Submit">
-<input type="reset" value="Reset">
-</form>
+    <h2>Enter your customer id and password to complete the transaction:</h2>
+
+    <form method="POST" action="order.php">
+    <input type="text" name="customerId" size="50" required>
+    <input type="password" name="password" size="30" required>
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset">
+    </form>
+
+  </div>
 
 </body>
 </html>

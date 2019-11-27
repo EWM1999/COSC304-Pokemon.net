@@ -79,6 +79,13 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+
+      .login_things{
+          text-align: right;
+          padding: 10px;
+          color: #FFCB05;
+        }
+
       table {
       border-collapse: collapse;
       width: 50%;
@@ -112,11 +119,14 @@
   </head>
 <body>
 
+<div class="container">
+
 <?php
 include 'include/db_credentials.php';
 
 /** Get customer id **/
 if ((!filter_input(INPUT_POST, 'customerId'))|| (!filter_input(INPUT_POST, 'password'))) {
+  $_SESSION['checkoutMessage'] = "You didn't even enter anything?!?";
 	header("Location: checkout.php");
 	exit;
 }
@@ -129,7 +139,8 @@ $productList = null;
 if (isset($_SESSION['productList'])){
 	$productList = $_SESSION['productList'];
 }else{
-	die("<p>There are no products in your shopping cart :( </p>");
+  $_SESSION['checkoutMessage'] = "There are no products in your shopping cart :(";
+  header('Location: checkout.php');
 }
 
 /**
@@ -141,7 +152,8 @@ If either are not true, display an error message
 // valid customer id?
 // maybe if its an integer? Because the ddl wants one?
 if(!is_numeric($custId)){
-	die("<p>ids are supposed to be numbers buddy :( </p>");
+  $_SESSION['checkoutMessage'] = "Your customer id should be a number, my dude :(";
+  header('Location: checkout.php');
 }
 // maybe if its in the customer list
 include 'include/db_credentials.php';
@@ -151,8 +163,12 @@ $con = sqlsrv_connect($server, $connectionInfo);
 $sql = "SELECT * FROM customer WHERE customerId = ? AND password = ?;";
 $result = sqlsrv_query($con, $sql, array($custId, $password));
 if(!$result){
-	die("<p>You are not a valid customer :( </p>");
+  $_SESSION['checkoutMessage'] = "Invalid customerId and password combination :(";
+  header('Location: checkout.php');
 }
+
+//  if you made it this far you did fine
+$_SESSION['checkoutMessage'] = null;
 
 $custId = intval($custId);
 $orderId=0;
@@ -187,7 +203,9 @@ if(!sqlsrv_fetch($result)){
 
 $orderId = sqlsrv_get_field($result,0);
 
-echo('<h1><img src="https://i.imgur.com/SYl1PF8.png" border="0"></h1>');
+echo('<h1 style="float:left"><img src="https://i.imgur.com/SYl1PF8.png" border="0"></h1>');
+include 'loginHeader.php';
+echo "<br>";
 echo("<table border = \"2\">");
 echo("<tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
 
@@ -258,6 +276,8 @@ echo("<h2><a href=\"index.php\">Return to collecting 'em all :)</a></h2>");
 $_SESSION['productList'] = NULL;
 sqlsrv_close($con);
 ?>
+
+</div>
 </body>
 </html>
 

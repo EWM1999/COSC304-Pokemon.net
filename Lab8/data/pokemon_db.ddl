@@ -24,6 +24,7 @@ CREATE TABLE customer (
     country             VARCHAR(40),
     userid              VARCHAR(20),
     password            VARCHAR(30),
+    admin               tinyint DEFAULT 0,
     PRIMARY KEY (customerId)
 );
 
@@ -186,12 +187,21 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Goth
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Drilbur',10,'Drilbur has a short, wide body with two small, ovoid feet with three toes each.',14.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Litwick',8,'Litwick is a small, candle-like Pokémon with a purple flame atop its head',21.05);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Zubat',13,'Zubat is a blue, bat-like Pokémon',14.00);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Umbreon',2,'Umbreon has a sleek, black body with four slender legs and crimson eyes.',9.19);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Aron',17,'Aron is a quadruped Pokémon with four stubby legs and a large round head.',21.90);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Meltan',17,'Meltan is a small Pokémon with a silvery body of liquid metal.',50.98);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Clefairy',5,'Clefairy is a bipedal, pink Pokémon with a chubby, vaguely star-shaped body.',19.39);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Cubone',10,'Cubone is a small, bipedal Pokémon with a light brown hide that covers most of its body, except for its cream-colored belly.',25.60);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Dratini',3,'Dratini is a serpentine Pokémon with a blue body and a white underside.',16.61);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Roggenrola',15,'Roggenrola is a roughly spherical Pokémon discovered a century ago in an earthquake fissure.',39.93);
 
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Candace', 'Cole', 'cole@charity.org', '333-444-5555', '333 Central Crescent', 'Chicago', 'IL', '33333', 'United States', 'candace' , 'password');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Darren', 'Doe', 'oe@doe.com', '250-807-2222', '444 Dover Lane', 'Kelowna', 'BC', 'V1V 2X9', 'Canada', 'darren' , 'pw');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth' , 'test');
+
+/* Users */
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Samuel', 'Oak', 'profoak@kanto.edu', '204-111-2222', '103 Laboratory Street', 'Pallet Town', 'Kanto', 'R3X 45T', 'Canada', 'prof' , 'oak',1);
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Ash', 'Ketchem', 'ashthebash@pikachu.com', '572-342-8911', '222 Bush Avenue', 'Pallet Town', 'Kanto', '22222', 'United States', 'ash' , 'pikachu');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Gary', 'Oak', 'greatestgary@oak.org', '333-444-5555', '333 Central Crescent', 'Pallet Town', 'Kanto', '33333', 'United States', 'ggoak' , 'smellyalater');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Sapphire', 'Birch', 'sapphb@gmail.com', '250-807-2222', '444 Dover Lane', 'Littleroot Town', 'Hoenn', 'V1V 2X9', 'Canada', 'sapphire' , 'passpass');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Misty', 'Kasumi', 'watermisty@cerulean.gym', '555-666-7777', '555 Water Street', 'Cerulean City', 'Kanto', '52241', 'United States', 'mist' , 'pysduck',1);
 
 
 DECLARE @orderId int
@@ -202,9 +212,9 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId,
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 31);
 
 DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 106.75)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '1997-09-30 09:30:00', 0.00)
 SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 5, 21.35);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 13, 1, 0.00);
 
 DECLARE @orderId int
 INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 140)
@@ -229,7 +239,7 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId,
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 20, 3, 10);
 
 -- New SQL DDL for lab 8
-UPDATE Product SET productImageURL = 'img/Charizard.jpg' WHERE productName = 'Chaizard';
+UPDATE Product SET productImageURL = 'img/chairizard.jpg' WHERE productName = 'Chaizard';
 UPDATE Product SET productImageURL = 'img/Mimikyu.jpg' WHERE productName = 'Mimikyu';
 UPDATE Product SET productImageURL = 'img/Ivysaur.jpg' WHERE productName = 'Ivysaur';
 UPDATE Product SET productImageURL = 'img/Lapras.jpg' WHERE productName = 'Lapras';
@@ -252,14 +262,18 @@ UPDATE Product SET productImageURL = 'img/Parasect.jpg' WHERE productName = 'Par
 UPDATE Product SET productImageURL = 'img/Bellossom.jpg' WHERE productName = 'Bellossom';
 UPDATE Product SET productImageURL = 'img/Hoothoot.jpg' WHERE productName = 'Hoothoot';
 UPDATE Product SET productImageURL = 'img/Electrike.jpg' WHERE productName = 'Electrike';
-#UPDATE Product SET productImageURL = 'img/Beedrill.jpg' WHERE productName = 'Beedrill';
 UPDATE Product SET productImageURL = 'img/Pikachu.jpg' WHERE productName = 'Pikachu';
 UPDATE Product SET productImageURL = 'img/Pidgey.jpg' WHERE productName = 'Pidgey';
 UPDATE Product SET productImageURL = 'img/Gothita.jpg' WHERE productName = 'Gothita';
 UPDATE Product SET productImageURL = 'img/Drilbur.jpg' WHERE productName = 'Drilbur';
 UPDATE Product SET productImageURL = 'img/Litwick.jpg' WHERE productName = 'Litwick';
 UPDATE Product SET productImageURL = 'img/Zubat.jpg' WHERE productName = 'Zubat';
-
-
+UPDATE Product SET productImageURL = 'img/Umbreon.jpg' WHERE productName = 'Umbreon';
+UPDATE Product SET productImageURL = 'img/Aron.jpg' WHERE productName = 'Aron';
+UPDATE Product SET productImageURL = 'img/Meltan.jpg' WHERE productName = 'Meltan';
+UPDATE Product SET productImageURL = 'img/Clefairy.jpg' WHERE productName = 'Clefairy';
+UPDATE Product SET productImageURL = 'img/Cubone.jpg' WHERE productName = 'Cubone';
+UPDATE Product SET productImageURL = 'img/Dratini.jpg' WHERE productName = 'Dratini';
+UPDATE Product SET productImageURL = 'img/Roggenrola.jpg' WHERE productName = 'Roggenrola';
 
 

@@ -85,6 +85,10 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+      .login_things{
+          text-align: right;
+          color: #FFCB05;
+      }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -103,21 +107,27 @@
 
   <body>
 
+  <div class="container">
+    <h3 class="muted">Pokémon.net</h3>
+    <h1 style="float:left"><img src="https://i.imgur.com/EaMiZIY.png" border="0"></h1>
+
+    <?php
+      include 'loginHeader.php';
+    ?>
+    <br>
+  </div>
+
     <div class="container">
 
       <div class="masthead">
-        <h3 class="muted">Pokémon.net</h3>
         <div class="navbar">
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="listorder.php">List All Orders</a></li>
                 <li><a href="listprod.php">Start Shopping</a></li>
-                <li><a href="customer.php">Customer Info</a></li>
-                <li><a href="admin.php">Administrators</a></li>
-                 <li><a href="login.php">Login</a></li>
-                 <li><a href="logout.php">Log Out</a></li>
+                <li class="active"><a href="aboutus.php">Administrators</a></li>
               </ul>
             </div>
           </div>
@@ -125,9 +135,6 @@
       </div>
 
       <!-- Jumbotron -->
-
-
-      <h1><img src="https://i.imgur.com/EaMiZIY.png" border="0"></h1>
         <div class="span6">
           <h2>Why Do We Illegally Sell Pokémon?</h2>
           <p>As Pokémon fans, we have always wanted to collect and capture Pokémon with ease. We almost achieved it when during a dislocated knee incident, one of our team was wheeled around playing Pokémon Go. BUT we knew we could make the process even easier for ALL trainers. Thus, Pokémon.net. </p>
