@@ -186,6 +186,14 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Goth
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Drilbur',10,'Drilbur has a short, wide body with two small, ovoid feet with three toes each.',14.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Litwick',8,'Litwick is a small, candle-like Pokémon with a purple flame atop its head',21.05);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Zubat',13,'Zubat is a blue, bat-like Pokémon',14.00);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Umbreon',2,'Umbreon has a sleek, black body with four slender legs and crimson eyes.',9.19);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Aron',17,'Aron is a quadruped Pokémon with four stubby legs and a large round head.',21.90);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Meltan',17,'Meltan is a small Pokémon with a silvery body of liquid metal.',50.98);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Clefairy',5,'Clefairy is a bipedal, pink Pokémon with a chubby, vaguely star-shaped body.',19.39);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Cubone',10,'Cubone is a small, bipedal Pokémon with a light brown hide that covers most of its body, except for its cream-colored belly.',25.60);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Dratini',3,'Dratini is a serpentine Pokémon with a blue body and a white underside.',16.61);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Roggenrola',15,'Roggenrola is a roughly spherical Pokémon discovered a century ago in an earthquake fissure.',39.93);
+
 
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
@@ -252,14 +260,18 @@ UPDATE Product SET productImageURL = 'img/Parasect.jpg' WHERE productName = 'Par
 UPDATE Product SET productImageURL = 'img/Bellossom.jpg' WHERE productName = 'Bellossom';
 UPDATE Product SET productImageURL = 'img/Hoothoot.jpg' WHERE productName = 'Hoothoot';
 UPDATE Product SET productImageURL = 'img/Electrike.jpg' WHERE productName = 'Electrike';
-#UPDATE Product SET productImageURL = 'img/Beedrill.jpg' WHERE productName = 'Beedrill';
 UPDATE Product SET productImageURL = 'img/Pikachu.jpg' WHERE productName = 'Pikachu';
 UPDATE Product SET productImageURL = 'img/Pidgey.jpg' WHERE productName = 'Pidgey';
 UPDATE Product SET productImageURL = 'img/Gothita.jpg' WHERE productName = 'Gothita';
 UPDATE Product SET productImageURL = 'img/Drilbur.jpg' WHERE productName = 'Drilbur';
 UPDATE Product SET productImageURL = 'img/Litwick.jpg' WHERE productName = 'Litwick';
 UPDATE Product SET productImageURL = 'img/Zubat.jpg' WHERE productName = 'Zubat';
-
-
+UPDATE Product SET productImageURL = 'img/Umbreon.jpg' WHERE productName = 'Umbreon';
+UPDATE Product SET productImageURL = 'img/Aron.jpg' WHERE productName = 'Aron';
+UPDATE Product SET productImageURL = 'img/Meltan.jpg' WHERE productName = 'Meltan';
+UPDATE Product SET productImageURL = 'img/Clefairy.jpg' WHERE productName = 'Clefairy';
+UPDATE Product SET productImageURL = 'img/Cubone.jpg' WHERE productName = 'Cubone';
+UPDATE Product SET productImageURL = 'img/Dratini.jpg' WHERE productName = 'Dratini';
+UPDATE Product SET productImageURL = 'img/Roggenrola.jpg' WHERE productName = 'Roggenrola';
 
 
