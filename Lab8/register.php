@@ -115,8 +115,8 @@ include 'include/db_credentials.php';
 $link = sqlsrv_connect($server, $connectionInfo);
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $email = $address = $city = $state = $postalCode = $country= $firstName = $lastName ="";
-$username_err = $password_err = $confirm_password_err = $email_err = $address_err = $city_err = $state_err = $postalCode_err = $country_err = $firstName_err = $lastName_err ="";
+$username = $password = $confirm_password = $email = $address = $city = $state = $postalCode = $country= $firstName = $lastName = $phone = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $address_err = $city_err = $state_err = $postalCode_err = $country_err = $firstName_err = $lastName_err = $phone_err="";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -128,31 +128,98 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE userid = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
+        
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            $r = sqlsrv_query($link, $stmt, array($param_username));
             
             // Set parameters
             $param_username = trim($_POST["username"]);
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
                 
-                if(mysqli_stmt_num_rows($stmt) == 1){
+                if($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
                     $username_err = "This username is already taken.";
                 } else{
                     $username = trim($_POST["username"]);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
+           }
          
         // Close statement
         mysqli_stmt_close($stmt);
     }
+    if(empty(trim($_POST["firstName"]))){
+        $firstName_err = "Please enter a first name.";
+    } else{
+        // Prepare a select statement
+        	$firstName = trim($_POST["firstName"]);
+        }
+    }
+    if(empty(trim($_POST["lastName"]))){
+        $lastName_err = "Please enter a last name.";
+    } else{
+        // Prepare a select statement
+        	$lastName = trim($_POST["lastName"]);
+        }
+    
+
+    if(empty(trim($_POST["phone"]))){
+        $phone_err = "Please enter a Phone Number.";
+    } else{
+        // Prepare a select statement
+        	$phone = trim($_POST["phone"]);
+        }
+    
+
+    if(empty(trim($_POST["email"]))){
+        $firstName_err = "Please enter an email.";
+    } else{
+        // Prepare a select statement
+        	$mystring = trim($_POST["email"]);
+        	$word = '@';
+        	$word2 = '.';
+        	if(strpos($mystring, $word) > 0 and strpos($mystring, $word) >0 ){
+        		$email = trim($_POST["email"]);
+        	}else{
+        		$email_err = "Enter a Valid Email Address";
+        	}
+        }
+    
+
+    if(empty(trim($_POST["address"]))){
+        $address_err = "Please enter an address.";
+    } else{
+        // Prepare a select statement
+        	$address = trim($_POST["address"]);
+        }
+    
+
+    if(empty(trim($_POST["city"]))){
+        $city_err = "Please enter a city.";
+    } else{
+        // Prepare a select statement
+        	$city = trim($_POST["city"]);
+        }
+    
+     if(empty(trim($_POST["state"]))){
+        $state_err = "Please enter a state.";
+    } else{
+        // Prepare a select statement
+        	$state = trim($_POST["state"]);
+        }
+    
+    if(empty(trim($_POST["postalCode"]))){
+        $postalCode_err = "Please enter a postal code.";
+    } else{
+        // Prepare a select statement
+        	$postalCode = trim($_POST["postalCode"]);
+        }
+    
+    if(empty(trim($_POST["country"]))){
+        $country_err = "Please enter a country.";
+    } else{
+        // Prepare a select statement
+        	$country = trim($_POST["country"]);
+        }
+    
     
     // Validate password
     if(empty(trim($_POST["password"]))){
@@ -195,32 +262,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (userid, password) VALUES (?, ?)";
-         
-        if($stmt = mysqli_prepare($link, $sql)){
+        $sql = "INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-            
-            // Set parameters
-            $param_username = $username;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $result1 = sqlsrv_query($con, $stmt, array($firstName, $lastName, $email, $phonenum, $address, $city, $state, $postalCode, $country, $username, $password));
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if($result1){
                 // Redirect to login page
                 header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }
-        }
          
         // Close statement
-        mysqli_stmt_close($stmt);
+        sqlsrv_close($stmt);
     }
     
     // Close connection
-    mysqli_close($link);
-}
+    sqlsrv_close($link);
+
 ?>
  
 <body>
@@ -247,6 +308,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label>Email</label>
                 <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
                 <span class="help-block"><?php echo $email_err; ?></span>
+            </div>
+            <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
+                <label>Phone Number</label>
+                <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>">
+                <span class="help-block"><?php echo $phone_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
                 <label>Address</label>
