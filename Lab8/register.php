@@ -126,25 +126,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE userid = ?";
+        $sql = "SELECT customerId FROM customer WHERE userid = ?";
         
-        
+        	$test = trim($_POST["username"]);
             // Bind variables to the prepared statement as parameters
-            $r = sqlsrv_query($link, $stmt, array($param_username));
+            $r = sqlsrv_query($link, $sql, array($test));
             
             // Set parameters
-            $param_username = trim($_POST["username"]);
+           // $username = trim($_POST["username"]);
             
             // Attempt to execute the prepared statement
                 
-                if($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
+                if($row = sqlsrv_fetch_array($r, SQLSRV_FETCH_ASSOC)){
                     $username_err = "This username is already taken.";
                 } else{
                     $username = trim($_POST["username"]);
            }
          
         // Close statement
-        mysqli_stmt_close($stmt);
+       // mysqli_stmt_close($stmt);
     }
     if(empty(trim($_POST["firstName"]))){
         $firstName_err = "Please enter a first name.";
@@ -152,7 +152,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         	$firstName = trim($_POST["firstName"]);
         }
-    }
+    
     if(empty(trim($_POST["lastName"]))){
         $lastName_err = "Please enter a last name.";
     } else{
@@ -257,27 +257,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = "Password did not match.";
         }
     }
+}
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)&& empty($firstName_err)&& empty($lastName_err)&& empty($email_err)&& empty($phone_err)&& empty($address_err)&& empty($city_err)&& empty($state_err)&& empty($postalCode_err)&& empty($country_err)){
         
         // Prepare an insert statement
         $sql = "INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
             // Bind variables to the prepared statement as parameters
-            $result1 = sqlsrv_query($con, $stmt, array($firstName, $lastName, $email, $phonenum, $address, $city, $state, $postalCode, $country, $username, $password));
+            $result1 = sqlsrv_query($link, $sql, array($firstName, $lastName, $email, $phone, $address, $city, $state, $postalCode, $country, $username, $password));
             
-            // Attempt to execute the prepared statement
+            // Attempt to execute the prepared stateme
             if($result1){
-                // Redirect to login page
-                header("location: login.php");
-            } else{
-                echo "Something went wrong. Please try again later.";
+            	echo("account created");
+            }else{
+            	echo("Something went wrong... :(");
             }
+        }
          
         // Close statement
-        sqlsrv_close($stmt);
-    }
+       // sqlsrv_close($sql);
     
     // Close connection
     sqlsrv_close($link);
