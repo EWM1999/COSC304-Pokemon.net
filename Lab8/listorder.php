@@ -122,7 +122,7 @@
 
     <div class="container">
         <h3 class="muted">Pokémon.net</h3>
-        <h1 style="float:left"><img src="https://i.imgur.com/idZzv7Z.png" border="0"></h1>
+        <h1 style="float:left"><img src="https://i.imgur.com/5Yp1Afk.png" border="0"></h1>
         <?php
         include 'loginHeader.php'
         ?>
@@ -169,9 +169,10 @@ Useful code for formatting currency:
 			Write out product information 
 **/
 
+  if(!issset($_SESSION['admin']) || $_SESSION['admin'] != 1){
+    header('Location: index.php');
+  }
 
-/** Close connection **/
-/** include 'header.php'; **/
 	include 'include/db_credentials.php';
 	$con = sqlsrv_connect($server, $connectionInfo);
 	if( $con === false ) {

@@ -1,6 +1,9 @@
 <?php
 
 include 'auth.php';
+if($_SESSION['admin'] != 1){
+          header('Location: index.php');
+      }
 
 //productName, categoryId, productDesc, productPrice
 
@@ -47,6 +50,6 @@ if(!$result){
 
 sqlsrv_close($con);
 $_SESSION['addProductMessage'] = null;
-header("Location: listprod.php");
+header("Location: admin.php");
 
 ?>

@@ -123,7 +123,7 @@
       </div>
 
     <div class="container">
-    <h1 style="float:left"><img src="https://i.imgur.com/YVBAWvk.png" border="0"></h1>
+    <h1 style="float:left"><img src="https://i.imgur.com/5Yp1Afk.png" border="0"></h1>
     <?php
       include 'auth.php';
       include 'loginHeader.php'
