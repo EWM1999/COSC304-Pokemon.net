@@ -130,6 +130,9 @@
       if($_SESSION['admin'] != 1){
           header('Location: index.php');
       }
+      if(isset($_SESSION['addProductMessage']) && $_SESSION['addProductMessage'] != null){
+          echo "<p>".$_SESSION['addProductMessage']."</p>";
+      }
     ?>
 
     <br></div>
@@ -154,25 +157,23 @@
     <!-- Add a Product -->
     <h3>Add a Product to the Database</h3>
 
-    <form name="addProduct" method="get" action="addProduct.php">
-        <table>
-        <tr><td>Product Name:</td><td><input type="text" name='ProductName' required maxlength=40></td></tr>
-        <tr><td>Category Name:</td><td><input type="text" name='categoryName' required maxlength=50></td></tr>
-        <tr><td>Product Price:</td><td><input type="text" name='ProductPrice' min=0 required value=9.99></td></tr>
-        <tr><td>Description:</td><td><input type="text" name='productDesc' maxlength=1000></td></tr>
-        </table>
-        <input type="submit">
+    <form method="get" action="addProduct.php">
+        Product Name:   <input type="text" name='productName' required maxlength=40><br>
+        Category Name:  <input type="text" name='categoryName' required maxlength=50><br>
+        Product Price:  <input type="text" name='productPrice' min=0 required value=4.20><br>
+        Description:    <input type="text" name='productDesc' maxlength=1000><br>
+        <input type="submit" value="submit">
     </form>
 
     <h3>Load the Database From File</h3>
-    <form name="loadData" method="get" action="loaddata.php">
+    <form method="get" action="loaddata.php">
         <input type="file" name='file' required><br>
-        <input type="submit">
+        <input type="submit" value="submit">
     </form>
 
     <h3>Reload the Database From Default</h3>
-    <form name="loadData" method="get" action="loaddata.php">
-        <input type="submit">
+    <form method="get" action="loaddata.php">
+        <input type="submit" value="submit">
     </form>
 
   </body>
