@@ -165,12 +165,6 @@
         <input type="submit" value="submit">
     </form>
 
-    <h3>Load the Database From File</h3>
-    <form method="get" action="loaddata.php">
-        <input type="file" name='file' required><br>
-        <input type="submit" value="submit">
-    </form>
-
     <h3>Reload the Database From Default</h3>
     <form method="get" action="loaddata.php">
         <input type="submit" value="submit">
