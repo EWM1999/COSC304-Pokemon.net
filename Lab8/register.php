@@ -257,10 +257,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = "Password did not match.";
         }
     }
-}
+
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)&& empty($firstName_err)&& empty($lastName_err)&& empty($email_err)&& empty($phone_err)&& empty($address_err)&& empty($city_err)&& empty($state_err)&& empty($postalCode_err)&& empty($country_err)){
+    if($username_err == "" && empty($password_err) && empty($confirm_password_err)&& empty($firstName_err)&& empty($lastName_err)&& empty($email_err)&& empty($phone_err)&& empty($address_err)&& empty($city_err)&& empty($state_err)&& empty($postalCode_err)&& empty($country_err)){
         
         // Prepare an insert statement
         $sql = "INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -270,13 +270,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared stateme
             if($result1){
-            	echo("account created");
+            	header("location: index.php");
             }else{
             	echo("Something went wrong... :(");
             }
         }
          
-        // Close statement
+     }   // Close statement
        // sqlsrv_close($sql);
     
     // Close connection
@@ -285,68 +285,68 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
  
 <body>
-    <div class="wrapper">
+    <div class="wrapper" style  = "margin-left: 5%">
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Username</label>
-                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
+                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>"required>
                 <span class="help-block"><?php echo $username_err; ?></span>
             </div> 
             <div class="form-group <?php echo (!empty($firstName_err)) ? 'has-error' : ''; ?>">
                 <label>First Name</label>
-                <input type="text" name="firstName" class="form-control" value="<?php echo $firstName; ?>">
+                <input type="text" name="firstName" class="form-control" value="<?php echo $firstName; ?>"required>
                 <span class="help-block"><?php echo $firstName_err; ?></span>
             </div>  
               <div class="form-group <?php echo (!empty($lastName_err)) ? 'has-error' : ''; ?>">
                 <label>Last Name</label>
-                <input type="text" name="lastName" class="form-control" value="<?php echo $lastName; ?>">
+                <input type="text" name="lastName" class="form-control" value="<?php echo $lastName; ?>"required>
                 <span class="help-block"><?php echo $lastName_err; ?></span>
             </div>    
             <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
                 <label>Email</label>
-                <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
+                <input type="text" name="email" class="form-control" value="<?php echo $email; ?>"required>
                 <span class="help-block"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
                 <label>Phone Number</label>
-                <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>">
+                <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>"required>
                 <span class="help-block"><?php echo $phone_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
                 <label>Address</label>
-                <input type="text" name="address" class="form-control" value="<?php echo $address; ?>">
+                <input type="text" name="address" class="form-control" value="<?php echo $address; ?>"required>
                 <span class="help-block"><?php echo $address_err; ?></span>
             </div>
              <div class="form-group <?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
                 <label>City</label>
-                <input type="text" name="city" class="form-control" value="<?php echo $city; ?>">
+                <input type="text" name="city" class="form-control" value="<?php echo $city; ?>"required>
                 <span class="help-block"><?php echo $city_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($state_err)) ? 'has-error' : ''; ?>">
                 <label>State</label>
-                <input type="text" name="state" class="form-control" value="<?php echo $state; ?>">
+                <input type="text" name="state" class="form-control" value="<?php echo $state; ?>"required>
                 <span class="help-block"><?php echo $state_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($postalCode_err)) ? 'has-error' : ''; ?>">
                 <label>Postal Code</label>
-                <input type="text" name="postalCode" class="form-control" value="<?php echo $postalCode; ?>">
+                <input type="text" name="postalCode" class="form-control" value="<?php echo $postalCode; ?>"required>
                 <span class="help-block"><?php echo $postalCode_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($country_err)) ? 'has-error' : ''; ?>">
                 <label>Country</label>
-                <input type="text" name="country" class="form-control" value="<?php echo $country; ?>">
+                <input type="text" name="country" class="form-control" value="<?php echo $country; ?>"required>
                 <span class="help-block"><?php echo $country_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
+                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>"required>
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>"required>
                 <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
+                <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>"required>
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
