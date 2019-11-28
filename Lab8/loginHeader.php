@@ -14,11 +14,14 @@
             // and have access to the admin page
             echo("<a class=\"login_things\" href=\"admin.php\">Administrator</a><br>");
         }
-        echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a>");
+        echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a><br>");
         echo("</div>");
         }else{
         // they aren't logged in
-        echo("<div class=\"login_things\"><a class=\"login_things\" href=\"login.php\">Log In</a></div>");
+        echo("<div class=\"login_things\">");
+        echo("<a class=\"login_things\" href=\"register.php\">Create an Account</a><br>");
+        echo("<a class=\"login_things\" href=\"login.php\">Log In</a><br>");
+        echo("</div>");
 
         }
     ?>
