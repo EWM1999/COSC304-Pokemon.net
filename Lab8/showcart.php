@@ -122,32 +122,33 @@ session_start();
 $productList = null;
 if (isset($_SESSION['productList'])){
 	$productList = $_SESSION['productList'];
-if(isset($_GET['update'])){
-        $quantity = $_GET['newqty'];
-        //echo($quantity);
-    }
 	echo("<h1><img src='https://i.imgur.com/iGaHTLA.png' border='0'></h1>");
 	echo("<table border = \"1\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	echo("<th>Price</th><th>Subtotal</th><th>Remove from Order</th><th>Change Quantity</th></tr>");
   $count = 0;
 	$total =0;
 	foreach ($productList as $id => $prod) {
+    $quantity = $prod['quantity'];
+    if(isset($_GET['update'])){
+        $quantity = $_GET['newqty'];
+        //echo($quantity);
+    }
     $count = $count + 1;
 		echo("<tr><td>". $prod['id'] . "</td>");
 		echo("<td>" . $prod['name'] . "</td>");
 
-		echo("<td align=\"center\"><input type='text' value=". $prod['quantity'] . "
+		echo("<td align=\"center\"><input type='text' value=". $quantity . "
         style='width: 50px;' name='newqty'></td>");
 		$price = $prod['price'];
 
 		echo("<td align=\"right\">$" . number_format($price ,2) ."</td>");
-		echo("<td align=\"right\">$" . number_format($prod['quantity']*$price, 2) . "</td>");
+		echo("<td align=\"right\">$" . number_format($quantity*$price, 2) . "</td>");
     echo("<td><a href=\"showcart.php?delete=".$prod['id']."\">Remove Item from Cart</a></td>");
     // Change quantities of product in shopping cart
     /*echo("<td><input type=\"button\" onclick=\"update(".$prod['id'].", document.form1.newqty".$count.".value)\" value=\"Update Quantity\"></td></tr>");*/
-    echo("<td><a href = 'showcart.php?update=".$prod['id']."&newqty=".$count."'>Update Quantity</a></td></tr>");
+    echo("<td><a href = 'showcart.php?update=".$prod['id']."&newqty=".$quantity."'>Update Quantity</a></td></tr>");
 		echo("</tr>");
-		$total = $total +$prod['quantity']*$price;
+		$total = $total +$quantity*$price;
 	}
 	echo("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td align=\"right\">$" . number_format($total,2) ."</td></tr>");
 	echo("</table>");
