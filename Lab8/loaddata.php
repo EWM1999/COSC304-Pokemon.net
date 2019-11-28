@@ -12,9 +12,6 @@
 	}
 
 	$fileName = "./data/pokemon_db.ddl";
-	if(isset($_GET['filename'])){
-		$fileName=$_GET['filename'];
-	}
 
 	$file = file_get_contents($fileName, true);
 	$lines = explode(";", $file);
