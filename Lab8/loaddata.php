@@ -6,11 +6,16 @@
 <?php
 	include 'include/db_credentials.php';
 	$con = sqlsrv_connect($server, $connectionInfo);
-	echo("<h1>Connecting to database.</h1><p>");
+	echo("<h2>Connecting to database.</h2><p>");
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
 	}
+
 	$fileName = "./data/pokemon_db.ddl";
+	if(isset($_GET['filename'])){
+		$fileName=$_GET['filename'];
+	}
+
 	$file = file_get_contents($fileName, true);
 	$lines = explode(";", $file);
 	echo("<ol>");

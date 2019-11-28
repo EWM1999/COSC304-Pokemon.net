@@ -138,10 +138,10 @@
           <div class="container">
           <ul class="nav">
             <li><a href="index.php">Home</a></li>
-            <li class="active"><a href="admin.php">Admin Page</a></li>
+            <li><a href="admin.php">Admin Page</a></li>
             <li><a href="listorder.php">All Orders</a></li>
-            <li><a href="listcust.php">All Customers</a></li>
-            <li><a href="loaddata.php">Load Database</a></li>
+            <li class='active'><a href="listcust.php">All Customers</a></li>
+            <li><a href="dataManagement.php">Manage Database</a></li>
           </ul>
           </div>
         </div>
@@ -172,7 +172,7 @@
 
     $con = sqlsrv_connect($server, $connectionInfo);
 
-    $sql = "SELECT orderDate, SUM(totalAmount) as total FROM ordersummary GROUP BY orderDate ORDER BY orderDate DESC;";
+    $sql = "SELECT customerId, firstName + ' ' + lastName as name, email, phonenum, userId FROM customer;";
     $result = sqlsrv_query($con, $sql, array($userId));
 
     if(!$result){
@@ -181,12 +181,10 @@
 
 
     echo('<table border = \"2\">');
-    echo('<tr><th>Order Date</th><th>Total Order Amount</th></tr>');
+    echo('<tr><th>Customer Id</th><th>User Id</th><th>Name</th><th>Email</th><th>Phone Number</th></tr>');
 
     while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-        $orderDate = $row['orderDate'];
-        $total = $row['total'];
-        echo('<tr><td>'.$orderDate->format('Y-m-d H:i:s')."</td><td>".$total."</td></tr>");
+        echo('<tr><td>'.$row['customerId']."</td><td>".$row['userId']."</td><td>".$row['name']."</td><td>".$row['email']."</td><td>".$row['phonenum']."</td></tr>");
     }
     echo("</table>");
 
@@ -196,4 +194,3 @@
     ?>
   </body>
 </html>
-

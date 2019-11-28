@@ -137,10 +137,11 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li><a href="index.php">Home</a></li>
-                <li class="active"><a href="listorder.php">List All Orders</a></li>
-                <li><a href="listprod.php">Start Shopping</a></li>
-                <li><a href="aboutus.php">About Us</a></li>
+              <li><a href="index.php">Home</a></li>
+              <li><a href="admin.php">Admin Page</a></li>
+              <li class="active"><a href="listorder.php">All Orders</a></li>
+              <li><a href="listcust.php">All Customers</a></li>
+              <li><a href="dataManagement.php">Manage Database</a></li>
               </ul>
             </div>
           </div>
