@@ -119,6 +119,13 @@
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
   <body>
+    <?php
+      include 'auth.php';
+      if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 1){
+        header('Location: index.php');
+      }
+    ?>
+
 
     <div class="container">
         <h3 class="muted">Pokémon.net</h3>
@@ -168,10 +175,6 @@ Useful code for formatting currency:
 		For each product in the order
 			Write out product information 
 **/
-
-  if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 1){
-    header('Location: index.php');
-  }
 
 	include 'include/db_credentials.php';
 	$con = sqlsrv_connect($server, $connectionInfo);
