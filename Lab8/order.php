@@ -163,8 +163,8 @@ if($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
   $_SESSION['checkoutMessage'] = null;
 
   /** Get customer id **/
-  $user = intval($row['customerId']);
-  $orderId=0;
+  $custId = intval($row['customerId']);
+  
   /** Make connection and validate **/
   // oh fuck i did that earlier
 
@@ -176,7 +176,7 @@ if($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
 
   // ok Ramon
   $sql = "INSERT INTO ordersummary (customerId, totalAmount, orderDate) OUTPUT INSERTED.orderId VALUES(?, 0, ?);";
-  $result = sqlsrv_query($con, $sql, array($user, $orderDate));
+  $result = sqlsrv_query($con, $sql, array($custId, $orderDate));
 
   if(!sqlsrv_fetch($result)){
     die("idk the query didn't insert or something. idk how to fix that");
