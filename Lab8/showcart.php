@@ -123,7 +123,7 @@ $productList = null;
 if (isset($_SESSION['productList'])){
 	$productList = $_SESSION['productList'];
 	echo("<h1><img src='https://i.imgur.com/iGaHTLA.png' border='0'></h1>");
-	echo("<table border = \"1\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	echo("<form action=\"updatecart.php\"><table border = \"1\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	echo("<th>Price</th><th>Subtotal</th><th>Remove from Order</th><th>Change Quantity</th></tr>");
   $count = 0;
 	$total =0;
@@ -137,15 +137,15 @@ if (isset($_SESSION['productList'])){
 		echo("<tr><td>". $prod['id'] . "</td>");
 		echo("<td>" . $prod['name'] . "</td>");
 
-		echo("<td align=\"center\"><input type='text' value=". $quantity . " style='width: 50px;' name='newqty'></td>");
+		echo("<td align=\"center\"><input type='text' name='quantity-".$prod['id']."' size='3' placeholder='". $prod['quantity'] . "'\></td>");
 		$price = $prod['price'];
 
 		echo("<td align=\"right\">$" . number_format($price ,2) ."</td>");
 		echo("<td align=\"right\">$" . number_format($quantity*$price, 2) . "</td>");
-    echo("<td><a href=\"showcart.php?delete=".$prod['id']."\">Remove Item from Cart</a></td>");
+    echo("<td><a class=deletecartoption href='deletecart.php?did=".$prod['id']."'>Remove Item from Cart</a></td>");
     // Change quantities of product in shopping cart
     /*echo("<td><input type=\"button\" onclick=\"update(".$prod['id'].", document.form1.newqty".$count.".value)\" value=\"Update Quantity\"></td></tr>");*/
-    echo("<td><a href = 'showcart.php?update=".$prod['id']."&newqty=".$quantity."'>Update Quantity</a></td></tr>");
+    echo("<td colspan=\"5\" align=\"right\"> <input type=\"submit\" class=\"btn btn-primary\" value=\"Update Quantity\"/></td></tr>");
 		echo("</tr>");
 		$total = $total +$quantity*$price;
 	}
