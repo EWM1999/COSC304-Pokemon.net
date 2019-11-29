@@ -152,7 +152,7 @@
 	if(!$results){
 		echo("False Statement Bitch");
 	}
-	if ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
+	while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
 		/*echo($row)*/
 		$orderId = $row['orderId'];
 		$orderDate = $row['orderDate'];
