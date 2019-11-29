@@ -137,8 +137,7 @@ if (isset($_SESSION['productList'])){
 		echo("<tr><td>". $prod['id'] . "</td>");
 		echo("<td>" . $prod['name'] . "</td>");
 
-		echo("<td align=\"center\"><input type='text' value=". $quantity . "
-        style='width: 50px;' name='newqty'></td>");
+		echo("<td align=\"center\"><input type='text' value=". $quantity . " style='width: 50px;' name='newqty'></td>");
 		$price = $prod['price'];
 
 		echo("<td align=\"right\">$" . number_format($price ,2) ."</td>");

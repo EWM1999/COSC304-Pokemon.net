@@ -141,7 +141,7 @@
             <li class="active"><a href="admin.php">Admin Page</a></li>
             <li><a href="listorder.php">All Orders</a></li>
             <li><a href="listcust.php">All Customers</a></li>
-            <li><a href="loaddata.php">Load Database</a></li>
+            <li><a href="dataManagement.php">Manage Database</a></li>
           </ul>
           </div>
         </div>
@@ -169,7 +169,7 @@
 
     */
 
-    if(!issset($_SESSION['admin']) || $_SESSION['admin'] != 1){
+    if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 1){
       header('Location: index.php');
     }
 

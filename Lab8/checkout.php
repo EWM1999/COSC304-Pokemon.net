@@ -112,20 +112,21 @@
 <body>
   <div class="container">
     <?php 
-        session_start();  
+        echo("<div>");
+        include 'loginHeader.php';
+        echo("</div><br>");
+        include 'header.php';
+
         if(isset($_SESSION['checkoutMessage'])){
           if ($_SESSION['checkoutMessage']  != null)	
               echo ("<p>" . $_SESSION['checkoutMessage'] . "</p>");
           }
-
-        include 'loginHeader.php';
-        include 'header.php';
     ?>
 
-    <h2>Enter your customer id and password to complete the transaction:</h2>
+    <h2>Enter your user id and password to complete the transaction:</h2>
 
     <form method="POST" action="order.php">
-    <input type="text" name="customerId" size="50" required>
+    <input type="text" name="userid" size="50" required autofocus>
     <input type="password" name="password" size="30" required>
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">

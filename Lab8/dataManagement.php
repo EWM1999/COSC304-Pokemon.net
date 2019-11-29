@@ -127,7 +127,7 @@
       include 'auth.php';
       include 'loginHeader.php';
 
-      if(!issset($_SESSION['admin']) || $_SESSION['admin'] != 1){
+      if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 1){
           header('Location: index.php');
       }
       if(isset($_SESSION['addProductMessage']) && $_SESSION['addProductMessage'] != null){
@@ -154,19 +154,25 @@
     </div><!-- /.navbar -->
     </div>
 
-    <!-- Add a Product -->
-    <h3>Add a Product to the Database</h3>
-
-    <form method="get" action="addProduct.php">
-        Product Name:   <input type="text" name='productName' required maxlength=40><br>
-        Category Name:  <input type="text" name='categoryName' required maxlength=50><br>
-        Product Price:  <input type="text" name='productPrice' min=0 required value=4.20><br>
-        Description:    <input type="text" name='productDesc' maxlength=1000><br>
+    <h3>Reload the Database From Default</h3>
+    <form method="get" action="loaddata.php">
         <input type="submit" value="submit">
     </form>
 
-    <h3>Reload the Database From Default</h3>
-    <form method="get" action="loaddata.php">
+
+    <!--Product Stuff-->
+    <h3>Add a Product to the Database</h3>
+    <form method="get" action="addProduct.php">
+        Product Name:<br><input type="text" name='productName' required maxlength=40><br>
+        Category Name:<br><input type="text" name='categoryName' required maxlength=50><br>
+        Product Price:<br><input type="text" name='productPrice' min=0 required value=4.20><br>
+        Description:<br><input type="text" name='productDesc' maxlength=1000><br>
+        <input type="submit" value="submit">
+    </form>
+
+    <h3>Delete a Product from the Database</h3>
+    <form method="get" action="deleteProduct.php">
+        Product Name:<br><input type="text" name='productName' required maxlength=40><br>
         <input type="submit" value="submit">
     </form>
 

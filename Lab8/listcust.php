@@ -155,19 +155,9 @@
     ?>
 
     <?php
-    // TODO: Write SQL query that prints out total order amount by day
-
-    /*
-
-    SELECT SUM(totalAmount) as total_order_amount
-    FROM ordersummary
-    GROUP BY orderDate
-    ORDER BY orderDate DESC;
-
-
-    ughhh i want to save the customerId so i don't have to joinnnn
-
-    */
+      if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 1){
+        header('Location: index.php');
+      }
     $userId = $_SESSION['authenticatedUser'];
 
     $con = sqlsrv_connect($server, $connectionInfo);

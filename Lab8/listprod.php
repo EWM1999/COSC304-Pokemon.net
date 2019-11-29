@@ -145,8 +145,10 @@
         </div><!-- /.navbar -->
       </div>
 
+        <h5>Search for a product</h5>
 		<form method="get" action="listprod.php">
             <p align="left">
+                <p>By Type</p>
                 <select size="1" name="categoryName">
                   <option>All</option>
                   <option>Bug</option>
@@ -166,11 +168,13 @@
                   <option>Rock</option>  
                   <option>Steel</option>   
                   <option>Water</option>
-                </select>
-		<input type="text" name="productName" size="50">
-		<input type="submit" value="Submit"><input type="reset" value="Reset" onclick="location.href='listprod.php'"> (Leave blank for all products)
+                </select><br>
+                <p>By Name</p>
+                <input type="text" name="productName" size="50"><br>
+                <input type="submit" value="Submit"><input type="reset" value="Reset" onclick="location.href='listprod.php'"> (Leave blank for all products)
         </p>
     </form>
+    <br>
     
     <?php 
     #include 'header.php';
