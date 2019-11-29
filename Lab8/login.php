@@ -101,7 +101,7 @@
 
 <?php 
     session_start();  
-    if ($_SESSION['loginMessage']  != null)	
+    if (isset($_SESSION['loginMessage']) && $_SESSION['loginMessage']  != null)	
         echo ("<p>" . $_SESSION['loginMessage'] . "</p>");
 ?>
 

@@ -123,7 +123,7 @@
       </div>
 
     <div class="container">
-    <h1 style="float:left"><img src="https://i.imgur.com/YVBAWvk.png" border="0"></h1>
+    <h1 style="float:left"><img src="https://i.imgur.com/5Yp1Afk.png" border="0"></h1>
     <?php
       include 'auth.php';
       include 'loginHeader.php'
@@ -168,6 +168,11 @@
     ughhh i want to save the customerId so i don't have to joinnnn
 
     */
+
+    if(!issset($_SESSION['admin']) || $_SESSION['admin'] != 1){
+      header('Location: index.php');
+    }
+
     $userId = $_SESSION['authenticatedUser'];
 
     $con = sqlsrv_connect($server, $connectionInfo);

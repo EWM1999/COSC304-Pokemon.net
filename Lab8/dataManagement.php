@@ -122,12 +122,12 @@
       </div>
 
     <div class="container">
-    <h1 style="float:left"><img src="https://i.imgur.com/YVBAWvk.png" border="0"></h1>
+    <h1 style="float:left"><img src="https://i.imgur.com/5Yp1Afk.png" border="0"></h1>
     <?php
       include 'auth.php';
       include 'loginHeader.php';
 
-      if($_SESSION['admin'] != 1){
+      if(!issset($_SESSION['admin']) || $_SESSION['admin'] != 1){
           header('Location: index.php');
       }
       if(isset($_SESSION['addProductMessage']) && $_SESSION['addProductMessage'] != null){
@@ -162,12 +162,6 @@
         Category Name:  <input type="text" name='categoryName' required maxlength=50><br>
         Product Price:  <input type="text" name='productPrice' min=0 required value=4.20><br>
         Description:    <input type="text" name='productDesc' maxlength=1000><br>
-        <input type="submit" value="submit">
-    </form>
-
-    <h3>Load the Database From File</h3>
-    <form method="get" action="loaddata.php">
-        <input type="file" name='file' required><br>
         <input type="submit" value="submit">
     </form>
 
