@@ -8,7 +8,6 @@
         padding-top: 20px;
         padding-bottom: 60px;
       }
-
       /* Custom container */
       .container {
         margin: 0 auto;
@@ -20,7 +19,6 @@
       .container-narrow {
     background color: #003A70; repeat 0 0;
       }
-
       /* Main marketing message and sign up button */
       .jumbotron {
         margin: 80px 0;
@@ -39,7 +37,6 @@
         padding: 14px 24px;
         background-color: #3D73DA;
       }
-
       /* Supporting marketing content */
       .marketing {
         margin: 60px 0;
@@ -47,8 +44,6 @@
       .marketing p + h4 {
         margin-top: 28px;
       }
-
-
       /* Customize the navbar links to be fill the entire space of the .navbar */
       .navbar .navbar-inner {
         padding: 0;
@@ -82,14 +77,11 @@
       border-collapse: collapse;
       width: 100%;
   }
-
   th, td {
       text-align: left;
       padding: 8px;
   }
-
   tr{background-color: #494948}
-
   th {
       background-color: #FFCB05;
       color: #494948;
@@ -112,24 +104,22 @@
 <body>
   <div class="container">
     <?php 
-        echo("<div>");
-        include 'loginHeader.php';
-        echo("</div><br>");
-        include 'header.php';
-
+        session_start();  
         if(isset($_SESSION['checkoutMessage'])){
           if ($_SESSION['checkoutMessage']  != null)	
               echo ("<p>" . $_SESSION['checkoutMessage'] . "</p>");
           }
+        include 'loginHeader.php';
+        include 'header.php';
     ?>
 
-    <h2>Enter your user id and password to complete the transaction:</h2>
+    <h2>Enter your customer id and password to complete the transaction:</h2>
 
-    <form method="post" action="order.php">
-      <input type="text" name="userid" size="20" required autofocus>
-      <input type="password" name="password" size="30" required>
-      <input type="submit" value="Submit">
-      <input type="reset" value="Reset">
+    <form method="POST" action="order.php">
+    <input type="text" name="customerId" size="50" required>
+    <input type="password" name="password" size="30" required>
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset">
     </form>
 
   </div>
