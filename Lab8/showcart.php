@@ -145,7 +145,7 @@ if (isset($_SESSION['productList'])){
     echo("<td><a class=deletecartoption href='deletecart.php?did=".$prod['id']."'>Remove Item from Cart</a></td>");
     // Change quantities of product in shopping cart
     /*echo("<td><input type=\"button\" onclick=\"update(".$prod['id'].", document.form1.newqty".$count.".value)\" value=\"Update Quantity\"></td></tr>");*/
-    echo("<td colspan=\"5\" align=\"right\"> <input type=\"submit\" class=\"btn btn-primary\" value=\"Update\"/></td></tr>");
+    echo("<td colspan=\"5\" align=\"right\"> <input type=\"submit\" class=\"btn btn-primary\" value=\"Update Quantity\"/></td></tr>");
 		echo("</tr>");
 		$total = $total +$quantity*$price;
 	}
