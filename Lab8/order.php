@@ -163,7 +163,7 @@ if($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
   $_SESSION['checkoutMessage'] = null;
 
   /** Get customer id **/
-  $userid = intval($row['customerId']);
+  $user = intval($row['customerId']);
   $orderId=0;
   /** Make connection and validate **/
   // oh fuck i did that earlier
@@ -257,6 +257,9 @@ if($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
   $_SESSION['productList'] = NULL;
   sqlsrv_close($con);
 
+}else{
+  $_SESSION['checkoutMessage'] = "Invalid userid and password combination :(";
+  header('Location: checkout.php');
 }
 
 

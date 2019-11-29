@@ -125,11 +125,11 @@
 
     <h2>Enter your user id and password to complete the transaction:</h2>
 
-    <form method="POST" action="order.php">
-    <input type="text" name="userid" size="50" required autofocus>
-    <input type="password" name="password" size="30" required>
-    <input type="submit" value="Submit">
-    <input type="reset" value="Reset">
+    <form method="post" action="order.php">
+      <input type="text" name="userid" size="20" required autofocus>
+      <input type="password" name="password" size="30" required>
+      <input type="submit" value="Submit">
+      <input type="reset" value="Reset">
     </form>
 
   </div>

@@ -169,7 +169,7 @@ Useful code for formatting currency:
 			Write out product information 
 **/
 
-  if(!issset($_SESSION['admin']) || $_SESSION['admin'] != 1){
+  if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 1){
     header('Location: index.php');
   }
 
