@@ -164,14 +164,36 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
     echo "<h4><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
             . "&price=" . $rst['productPrice'] . "\" style = 'float: right; margin: 2%; color: #EAEBED'>Add to Cart</a></h4>";
         
-    echo "<h4><a href=\"listprod.php\" style = 'float: right; margin: 2%; color: #EAEBED'>Continue Shopping</a></h4>";    
-}
+    echo "<h4><a href=\"listprod.php\" style = 'float: right; margin: 2%; color: #EAEBED'>Continue Shopping</a></h4>";
+
+    sqlsrv_free_stmt($pstmt);
+
+    /* Adding reviews? */
+    echo "<h2>Reviews</h2>";
+    $sql = "SELECT reviewRating, reviewDate, reviewComment, FROM Review WHERE productId = ?";
+    $con = sqlsrv_connect($server, $connectionInfo);
+    $pstmt = sqlsrv_query($con, $sql, array($id));
+    if(!$pstmt){
+      echo("can I get uhhh");
+    }
+    if($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
+      echo("<table border = \"2\" style = 'float: right'>");
+      echo("<tr><th>Review Date</th><th>Review Rating</th><th>Review Comment</th></tr>");
+      echo("<tr><td>".$row['reviewDate']."</td><td>".$row['reviewRating'].$row['reviewComment']."</td></tr>");
+      while ($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
+        echo("<tr><td>".$row['reviewDate']."</td><td>".$row['reviewRating'].$row['reviewComment']."</td></tr>");
+      }
+      echo "<table>";
+    }else{
+      echo("<h4>There are no reviews of this item yet</h4>");
+    }
+
+  }
 else
 {
     echo "Invalid product";
 }
                  
-sqlsrv_free_stmt($pstmt);
 sqlsrv_close($con);
 ?>
 </body>
