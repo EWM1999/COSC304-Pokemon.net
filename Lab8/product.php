@@ -170,7 +170,9 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
 
     /* Adding reviews? */
     echo "<h2>Reviews</h2>";
-    $sql = "SELECT reviewRating, reviewDate, reviewComment, FROM Review WHERE productId = ?";
+
+    // viewing previous reviews
+    $sql = "SELECT reviewRating, reviewDate, reviewComment FROM Review WHERE productId = ?";
     $con = sqlsrv_connect($server, $connectionInfo);
     $pstmt = sqlsrv_query($con, $sql, array($id));
     if(!$pstmt){
@@ -185,8 +187,10 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC))
       }
       echo "<table>";
     }else{
-      echo("<h4>There are no reviews of this item yet</h4>");
+      echo("<p>There are no reviews of this item yet</p>");
     }
+
+    // adding your own review
 
   }
 else
