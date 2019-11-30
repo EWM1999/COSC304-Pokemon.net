@@ -177,7 +177,7 @@
 
     $con = sqlsrv_connect($server, $connectionInfo);
 
-    $sql = "SELECT orderDate, SUM(totalAmount) as total FROM ordersummary GROUP BY orderDate ORDER BY orderDate DESC;";
+    $sql = "SELECT dateadd(DAY,0, datediff(day,0, orderDate)) as orderDate, SUM(totalAmount) as total FROM ordersummary GROUP BY dateadd(DAY,0, datediff(day,0, orderDate)) ORDER BY orderDate DESC;";
     $result = sqlsrv_query($con, $sql, array($userId));
 
     if(!$result){
@@ -191,7 +191,7 @@
     while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
         $orderDate = $row['orderDate'];
         $total = $row['total'];
-        echo('<tr><td>'.$orderDate->format('Y-m-d H:i:s')."</td><td>".$total."</td></tr>");
+        echo('<tr><td>'.$orderDate->format('Y-m-d')."</td><td>".$total."</td></tr>");
     }
     echo("</table>");
 
