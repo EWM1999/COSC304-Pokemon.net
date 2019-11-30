@@ -270,6 +270,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared stateme
             if($result1){
+               $to = $email;
+               $subject = "Congrats on Creating an Account!";
+              $msg = "Hi there, thank you for creating an account on Pokémon.net! Are you ready to catch em all with ease? Get started today!\n Here is your username: ".$username;
+              $msg = wordwrap($msg,70);
+              $headers = "From: katchemall.pokemon.net@gmail.com";
+              mail($to, $subject, $msg, $headers);
             	header("location: login.php");
             }else{
             	echo("Something went wrong... :(");
