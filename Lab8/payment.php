@@ -107,19 +107,11 @@
         include 'loginHeader.php';
         include 'header.php';
 
-        if ((!filter_input(INPUT_POST, 'customerId'))|| (!filter_input(INPUT_POST, 'password'))) {
-            $_SESSION['checkoutMessage'] = "You didn't even enter anything?!?";
-              header("Location: checkout.php");
-              exit;
-          }
+        // if((filter_input(INPUT_POST, 'payment') != 'paypal') && (filter_input(INPUT_POST, 'payment') != 'paymentmethod'))
+        //     $_SESSION['checkoutMessage'] = "Please pay us. We put a lot of hours into this";
+        //     header("Location: checkout.php");
+        //     exit;
     ?>
-
-    <form method="POST" action="payment.php">
-        <input type="text" name="customerId" size="50" required>
-        <input type="password" name="password" size="30" required>
-        <input type="submit" value="Submit">
-        <input type="reset" value="Reset">
-    </form>
 
   </div>
 
@@ -127,7 +119,7 @@
     <h3>Order Details</h3>
 
   <?php
-  $total = 0;
+    $total = 0;
     $productList = null;
     if (isset($_SESSION['productList'])){
       $productList = $_SESSION['productList'];
@@ -148,61 +140,44 @@
 
         $total = $total + $subtotal;
       }
-      echo("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td align=\"right\">$".number_format($total,2)."</td></tr>");
+      echo("<tr><td colspan=\"3\" align=\"right\"><b>Order Total</b></td><td align=\"right\">$".number_format($total,2)."</td></tr>");
       echo("</table>");
   }
   ?>
-
-<form method='POST' action="order.php">
-    <input type="text" name="customerId" hidden value=<?php echo(filter_input(INPUT_POST, 'customerId'));?>>
-    <input type="password" name="password" hidden value=<?php echo(filter_input(INPUT_POST, 'customerId'));?>>
-    Please either use paypal or select a payment method
-    <div id="paypal-button" name="paid" value=1></div>
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script>
-        paypal.Button.render({
-        // Configure environment
-        env: 'sandbox',
-        client: {
-            sandbox: 'demo_sandbox_client_id',
-            production: 'demo_production_client_id'
-        },
-        // Customize button (optional)
-        locale: 'en_US',
-        style: {
-            size: 'small',
-            color: 'gold',
-            shape: 'pill',
-        },
-
-        // Enable Pay Now checkout flow (optional)
-        commit: true,
-
-        // Set up a payment
-        payment: function(data, actions) {
-            return actions.payment.create({
-            transactions: [{
-                amount: {
-                total: <?php echo("'".$total."'");?>,
-                currency: 'CAD'
+    <form method='POST' action="order.php">
+    <input type="hidden" name="customerId" value=<?php echo(filter_input(INPUT_POST, 'customerId'))?>>
+    <input type="hidden" name="password" value=<?php echo(filter_input(INPUT_POST, 'password'))?>>
+    <?php
+        if(filter_input(INPUT_POST, 'payment') == 'paypal'){
+            echo('<div id="paypal-button"></div>');
+            echo('<script src="https://www.paypalobjects.com/api/checkout.js"></script>');
+            echo("<script>paypal.Button.render({
+                env: 'sandbox',
+                client: {sandbox: 'demo_sandbox_client_id', production: 'demo_production_client_id'},
+                locale: 'en_US',
+                style: {size: 'small',color: 'gold',shape: 'pill',},
+                    commit: true,
+        
+                payment: function(data, actions) {return actions.payment.create({transactions: [{amount: {total:".$total.",currency: 'CAD'}}]});},
+                onAuthorize: function(data, actions) {
+                    return actions.payment.execute().then(function() {window.alert('Thank you for your purchase!');});
                 }
-            }]
-            });
-        },
-        // Execute the payment
-        onAuthorize: function(data, actions) {
-            return actions.payment.execute().then(function() {
-            // Show a confirmation message to the buyer
-            window.alert('Thank you for your purchase!');
-            });
+                }, '#paypal-button');
+        
+                </script>");
+        }else if(filter_input(INPUT_POST, 'payment') == 'paymentmethod'){
+            echo('Payment Type<br>');
+            echo('<input type="text" name="paymentType"><br>');
+            echo("Payment Number<br>");
+            echo("<input type='password' name='paymentNumber'><br>");
+            echo("Payment Expiry Date<br>");
+            echo("<input type='date' name='paymentExpiryDate'><br>");
         }
-        }, '#paypal-button');
+    ?>
 
-    </script>
     <input type='submit' value='submit'>
 
     </form>
-
 
   </div>
 

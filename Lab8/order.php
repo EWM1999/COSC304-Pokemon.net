@@ -113,6 +113,8 @@
 
 <?php
 include 'include/db_credentials.php';
+$con = sqlsrv_connect($server, $connectionInfo);
+
 /** Get customer id **/
 if ((!filter_input(INPUT_POST, 'customerId'))|| (!filter_input(INPUT_POST, 'password'))) {
   $_SESSION['checkoutMessage'] = "You didn't even enter anything?!?";
@@ -121,6 +123,28 @@ if ((!filter_input(INPUT_POST, 'customerId'))|| (!filter_input(INPUT_POST, 'pass
 }
 $custId = filter_input(INPUT_POST, 'customerId');
 $password = filter_input(INPUT_POST, 'password');
+
+/* Did they pay? */
+if (filter_input(INPUT_POST, 'payment') == 'paymentmethod'){
+  $paymentType = filter_input(INPUT_POST, 'paymentType');
+  $paymentNumber = filter_input(INPUT_POST, 'paymentNumber');
+  $paymentExpiryDate = filter_input(INPUT_POST, 'paymentExpiryDate')->format('Y-m-d H:i:s');
+
+  $sql = "SELECT paymentMethodId FROM paymentmethod WHERE UPPER(paymentType) = UPPER(?) AND paymentNumber =  ? AND paymentExpiryDate = ?;";
+  $result = sqlsrv_query($con, $sql, array($paymentType, $paymentNumber, $paymentExpiryDate));
+  if(!$result){
+    die("idk the select didn't work");
+  }
+  if(!sqlsrv_fetch($result)){
+    $sql = "INSERT paymentmethod (paymentType, paymentNumber, paymentExpiryDate) VALUES (UPPER(?),?,?);";
+    $result = sqlsrv_query($con, $sql, array($paymentType, $paymentNumber, $paymentExpiryDate));
+    if(!$result){
+      die("idk the insert didn't work");
+    }
+  }
+}
+
+
 session_start();
 $productList = null;
 if (isset($_SESSION['productList'])){
@@ -141,8 +165,6 @@ if(!is_numeric($custId)){
   header('Location: checkout.php');
 }
 // maybe if its in the customer list
-include 'include/db_credentials.php';
-$con = sqlsrv_connect($server, $connectionInfo);
 $sql = "SELECT * FROM customer WHERE customerId = ? AND password = ?;";
 $result = sqlsrv_query($con, $sql, array($custId, $password));
 if(!$result){
