@@ -115,7 +115,7 @@
 
     <h2>Enter your customer id and password to complete the transaction:</h2>
 
-    <form method="POST" action="order.php">
+    <form method="POST" action="payment.php">
     <input type="text" name="customerId" size="50" required>
     <input type="password" name="password" size="30" required>
     <input type="submit" value="Submit">
