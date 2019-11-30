@@ -1,8 +1,54 @@
+<?php
+//require_once('connect.php');
+include 'include/db_credentials.php';
+$link = sqlsrv_connect($server, $connectionInfo);
+//require('config.php');
+ //require('PHPMailer/PHPMailerAutoload.php');
+$err_email = "";
+if (isset($_POST['reset-password'])) {
+  //$email = mysqli_real_escape_string($db, $_POST['email']);
+	$email = $_POST['email'];
+  // ensure that the user exists on our system
+  $query = "SELECT email FROM customer WHERE email=?";
+  $results = sqlsrv_query($link, $query, array($email));
+
+  if (empty($email)) {
+  	$err_email  = "Your email is required";
+    echo($err_email);
+  }else if(!($row = sqlsrv_fetch_array($results, SQLSRV_FETCH_ASSOC))) {
+    $err_email = "Sorry, no user exists on our system with that email";
+    echo($err_email);
+  }
+  // generate a unique random token of length 100
+  //$token = bin2hex(random_bytes(50));
+
+  if (empty($err_email)) {
+    // store token in the password-reset database table against the user's email
+    $sql = "SELECT password from customer where email = ?";
+    $results = sqlsrv_query($link, $sql, array($email));
+    $password = "ahhaha";
+    if($row = sqlsrv_fetch_array($results, SQLSRV_FETCH_ASSOC)){
+    	$password = $row['password'];
+    }
+    // Send email to user with the token in a link they can click on
+    $to = $email;
+    $subject = "Reset your password on pokemon.net";
+    $msg = "Hi there, here is your password: ".$password;
+    $msg = wordwrap($msg,70);
+    $headers = "From: katchemall.pokemon.net@gmail.com";
+    mail($to, $subject, $msg, $headers);
+    header('location: resetLogin.php');
+  }
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Screen</title>
-<link href="bootstrap.css" rel="stylesheet">
+	<title>Forgot Password</title>
+	<!-- Latest compiled and minified CSS -->
+	 <link href="bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 20px;
@@ -78,6 +124,21 @@
         border-right: 0;
         border-radius: 0 3px 3px 0;
       }
+        table {
+          border-collapse: collapse;
+          width:77%;
+          margin-left: 5%; 
+          
+      }
+      th, td {
+          text-align: left;
+          padding: 8px;
+      }
+      tr{background-color: #494948}
+      th {
+          background-color: #FFCB05;
+          color: #494948;
+      }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -94,37 +155,16 @@
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
 <body>
+	<form class="login-form" method="post">
+		<h2 class="form-title">Reset password</h2>
 
-<div style="margin:0 auto;text-align:center;display:inline">
-
-<h3>Please Login to System</h3>
-
-<?php 
-    session_start();  
-    if (isset($_SESSION['loginMessage']) && $_SESSION['loginMessage']  != null)	
-        echo ("<p>" . $_SESSION['loginMessage'] . "</p>");
-?>
-
-<br>
-<form name="MyForm" method="post" action="validateLogin.php">
-<table style="display:inline">
-<tr>
-	<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Username:</font></div></td>
-	<td><input type="text" name="username"  size=10 maxlength=20></td>
-</tr>
-<tr>
-	<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Password:</font></div></td>
-	<td><input type="password" name="password" size=10 maxlength="30"></td>
-</tr>
-</table>
-<br/>
-<input class="submit" type="submit" name="Submit2" value="Log In">
-<br/><br/>
-<a href = 'forgotPassword.php' style = 'float: center'>Forgot Your Password?</a>
-</form>
-
-</div>
-
+		<div class="form-group">
+			<label>Your email address</label>
+			<input type="email" name="email">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="reset-password" class="login-btn">Submit</button>
+		</div>
+	</form>
 </body>
 </html>
-

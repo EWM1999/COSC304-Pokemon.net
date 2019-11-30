@@ -99,6 +99,8 @@
 
 <h3>Please Login to System</h3>
 
+<h4>Your password has been emailed to your email, please enter that password below</h4>
+
 <?php 
     session_start();  
     if (isset($_SESSION['loginMessage']) && $_SESSION['loginMessage']  != null)	
@@ -119,8 +121,6 @@
 </table>
 <br/>
 <input class="submit" type="submit" name="Submit2" value="Log In">
-<br/><br/>
-<a href = 'forgotPassword.php' style = 'float: center'>Forgot Your Password?</a>
 </form>
 
 </div>
