@@ -20,8 +20,8 @@ $reviewDate = date('Y-m-d H:i:s');
 
 $con = sqlsrv_connect($server, $connectionInfo);
 
-$sql = "SELECT customerId FROM customer WHERE userid = ?;";
-$result = sqlsrv_query($con, $sql, array($userid));
+$sql = "SELECT customerId FROM customer c WHERE userid = ? AND customerId NOT IN (SELECT customerId FROM review WHERE productId = ?);";
+$result = sqlsrv_query($con, $sql, array($userid, $productId));
 if ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
     $customerId = $row['customerId'];
 

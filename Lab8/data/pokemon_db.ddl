@@ -23,7 +23,7 @@ CREATE TABLE customer (
     postalCode          VARCHAR(20),
     country             VARCHAR(40),
     userid              VARCHAR(20),
-    password            VARCHAR(30),
+    password            VARCHAR(256),
     admin               tinyint DEFAULT 0,
     PRIMARY KEY (customerId)
 );
@@ -275,5 +275,11 @@ UPDATE Product SET productImageURL = 'img/Clefairy.jpg' WHERE productName = 'Cle
 UPDATE Product SET productImageURL = 'img/Cubone.jpg' WHERE productName = 'Cubone';
 UPDATE Product SET productImageURL = 'img/Dratini.jpg' WHERE productName = 'Dratini';
 UPDATE Product SET productImageURL = 'img/Roggenrola.jpg' WHERE productName = 'Roggenrola';
+
+
+/* Reviews :) */
+
+INSERT review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (2, '2006-06-07 09:27:31', 5, 13, 'hes a nightmare and i hate him but i might be growing attached');
+INSERT review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (5, '2010-12-13 09:27:31', 3, 30, 'i would die for her');
 
 
