@@ -157,6 +157,9 @@
     <h5>Order History</h5>
     <input type="submit" value="See Order History">
   </form>
+  <form action = 'editCustomer.php'>
+    <input type = 'submit' value = 'Edit Your Information'>
+  </form>
 
 </body>
 </html>
