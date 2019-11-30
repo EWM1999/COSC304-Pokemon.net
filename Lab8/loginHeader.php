@@ -15,6 +15,7 @@
             echo("<a class=\"login_things\" href=\"admin.php\">Administrator</a><br>");
         }
         echo("<a class=\"login_things\" href=\"logout.php\">Log Out</a><br>");
+        echo("<a class = \"login_things\" href=\"resetPassword.php\">Reset Password</a><br>");
         echo("</div>");
         }else{
         // they aren't logged in

@@ -270,7 +270,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared stateme
             if($result1){
-            	header("location: index.php");
+            	header("location: login.php");
             }else{
             	echo("Something went wrong... :(");
             }
