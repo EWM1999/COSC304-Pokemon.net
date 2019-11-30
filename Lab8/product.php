@@ -180,9 +180,9 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)) {
     if($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
       echo("<table border = \"2\" style = 'float: right'>");
       echo("<tr><th>Review Date</th><th>Review Rating</th><th>Review Comment</th></tr>");
-      echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating'].$row['reviewComment']."</td></tr>");
+      echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating']."</td><td>".$row['reviewComment']."</td></tr>");
       while ($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
-        echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating'].$row['reviewComment']."</td></tr>");
+        echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating']."</td><td>".$row['reviewComment']."</td></tr>");
       }
       echo "<table>";
     }else{
@@ -192,13 +192,12 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)) {
     // adding your own review
     echo("<h4>Review this Product</h4>");
     echo("<p>All reviews are anonymous, for your safety. Ids are for internal use only</p>");
-    echo("<form method='get' action='review.php?productId=".$prodId."'>");
-    echo("<p>Customer Id</p>");
-    echo('<input type="number" name="customerId" required><br>');
+    echo("<form method='get' action='review.php?'>");
+    echo("<input type=\"hidden\" name=\"productId\" value=".$prodId.">");
     echo("<p>Product Rating</p>");
     echo('<input type="number" name="reviewRating" max=5 min=1 required><br>');
     echo("<p>Comment</p>");
-    echo('<input type="test" name="reviewComment" maxlength=1000><br>');
+    echo('<input type="text" name="reviewComment" maxlength=1000><br>');
     echo('<input type="submit" value="submit">');
     echo("</form>");
 
