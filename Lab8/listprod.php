@@ -213,24 +213,24 @@
 			if($hasName&&$hasCategory){
                 $filter = "<h3>Products containing '" . $name . "' in category: '" . $category . "'</h3>";
                 $name = '%' . $name . '%';
-                $sql = "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId WHERE productName LIKE ? AND categoryName = ?";
+                $sql = "SELECT productId, productName, productPrice, categoryName, productImageURL FROM Product P JOIN Category C ON P.categoryId = C.categoryId WHERE productName LIKE ? AND categoryName = ?";
                 $result1 = sqlsrv_query($con, $sql, array( $name, $category ));
                 echo($filter);
 
 			}else if($hasName){
                 echo("<h2>Products containing '" . $name . "'</h2>");
-                $sql = "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId where productName LIKE ?";
+                $sql = "SELECT productId, productName, productPrice, categoryName, productImageURL FROM Product P JOIN Category C ON P.categoryId = C.categoryId where productName LIKE ?";
                 $name = "%".$name."%";
                 $result1 = sqlsrv_query($con, $sql, array($name));
                 if(!$result1)
                     echo("Bitch you thought");
 			}else if($hasCategory){
                 $filter = "<h3>Products in category: '" . $category . "'</h3>";
-                $sql = "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId WHERE categoryName = ?";
+                $sql = "SELECT productId, productName, productPrice, categoryName, productImageURL FROM Product P JOIN Category C ON P.categoryId = C.categoryId WHERE categoryName = ?";
                 $result1 = sqlsrv_query($con, $sql, array( $category ));
                 echo($filter);
             }else{
-                $sql= "SELECT productId, productName, productPrice, categoryName FROM Product P JOIN Category C ON P.categoryId = C.categoryId";
+                $sql= "SELECT productId, productName, productPrice, categoryName, productImageURL FROM Product P JOIN Category C ON P.categoryId = C.categoryId";
                 $result1 = sqlsrv_query($con, $sql, array());
                 if(!$result1){
                     echo("Bitch you thought");
@@ -238,9 +238,11 @@
                 echo("<h2>All Products</h2>");
             }
 
-		echo("<table border = \"1\"><tr><th>Add to Cart</th><th>Product Name</th><th>Price</th><th>Category</th></tr>");
+		echo("<table border = \"1\"><tr><th>Add to Cart</th><th>Image</th><th>Product Name</th><th>Price</th><th>Category</th></tr>");
 		while($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
             echo("<tr><td><a href =\"addcart.php?id=".$row['productId']."&name=".$row['productName']. "&price=" . $row['productPrice'] . "\" style = 'color: #FFCB05'>Add</a></td>");
+            $imageLoc = $row['productImageURL'];
+            echo "<td><img src=\"" . $imageLoc . "\" alt = \"".$row['productName']."\" style = 'max-width: 10%; border-radius: 50%; margin: 2%; float: left'></td>";
             echo("<td><a href =\"product.php?productId=".$row['productId']."\" style = 'color: #FFCB05'>".$row['productName']."</a></td>");
             echo("<td>".number_format($row['productPrice'],2)."</td>");
             //$itemCategory = $row['categoryName'];
