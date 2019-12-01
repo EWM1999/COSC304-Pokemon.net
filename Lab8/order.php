@@ -136,8 +136,8 @@ if (filter_input(INPUT_POST, 'payment') == 'paymentmethod'){
     die("idk the select didn't work");
   }
   if(!sqlsrv_fetch($result)){
-    $sql = "INSERT paymentmethod (paymentType, paymentNumber, paymentExpiryDate) VALUES (UPPER(?),?,?);";
-    $result = sqlsrv_query($con, $sql, array($paymentType, $paymentNumber, $paymentExpiryDate));
+    $sql = "INSERT paymentmethod (paymentType, paymentNumber, paymentExpiryDate, customerId) VALUES (UPPER(?),?,?,?);";
+    $result = sqlsrv_query($con, $sql, array($paymentType, $paymentNumber, $paymentExpiryDate, intval($custId)));
     if(!$result){
       die("idk the insert didn't work");
     }

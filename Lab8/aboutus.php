@@ -145,6 +145,7 @@
        </div>
        <div class="span6">
           <h2>Contact Us</h2>
+          <p>katchemall.pokemon@gmail.com</p>
           <p>pokémon.pleasedontemailus.thisisaschoolproject.irepeataschoolproject.NOTREAL.weDONThavePOKEMON@gmail.com</p>
        </div>
        <div class="span8">
@@ -152,7 +153,7 @@
           <p>We don't actually have pokémon, sorry :(</p>          
        </div>
 
-  > <!-- /container -->
+   <!-- /container -->
 
     <!-- Le javascript
     ================================================== -->
