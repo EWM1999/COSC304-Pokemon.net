@@ -200,7 +200,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper" style="margin-left: 5%">
         <h2>Reset Password</h2>
         <p>Please fill out this form to reset your password.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 

@@ -139,6 +139,7 @@ if (isset($_POST['reset-password'])) {
           background-color: #FFCB05;
           color: #494948;
       }
+
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -155,7 +156,7 @@ if (isset($_POST['reset-password'])) {
                                    <link rel="shortcut icon" href="../bootstrap/ico/favicon.png">
   </head>
 <body>
-	<form class="login-form" method="post">
+	<form class="login-form" method="post" style = "margin-left: 5%">
 		<h2 class="form-title">Reset password</h2>
 
 		<div class="form-group">
