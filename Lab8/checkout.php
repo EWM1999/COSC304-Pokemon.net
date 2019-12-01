@@ -117,12 +117,12 @@
 
     <form method="POST" action="payment.php">
       CustomerId<br>
-      <input type="text" name="customerId" size="50" required><br>
+      <input type="numeric" name="customerId" min=1 required><br>
       Password<br>
       <input type="password" name="password" size="30" required><br><br>
       Payment Method<br>
-      <input type="radio" name="payment" value="paypal" checked> Paypal<br>
-      <input type="radio" name="payment" value="paymentmethod"> Card<br><br>
+      <input type="radio" name="payment" value="paymentmethod" checked> Card<br>
+      <input type="radio" name="payment" value="paypal"> Paypal<br><br>
       <input type="submit" value="Submit">
       <input type="reset" value="Reset">
     </form>

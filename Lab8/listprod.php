@@ -94,10 +94,11 @@
         }
         .product-item{
             background-color: #494948;
+            text-align:center;
             flex-grow: 1;
             padding: 10px;
             margin: 5px;
-            max-width: 20%;
+            max-width: 22%;
         }
 
       /* Display table very pretty */
@@ -277,6 +278,7 @@
             echo("<img src=\"".$row['productImageURL']."\" alt = \"".$row['productName']."\" style = 'max-width: 80%; border-radius: 50%; margin: 2%; display: block; margin-left: auto; margin-right: auto;'></a>");
             echo("<a href =\"product.php?productId=".$row['productId']."\" style = 'color: #FFCB05;'><h5 style = 'color: #FFCB05; text-align: center;'>".$row['productName']."</h5></a>");
             echo("<p style = 'color: #FFCB05; text-align: center;'>".$row['categoryName']."<br>$".$row['productPrice']."</p>"); 
+            echo("<a href =\"addcart.php?id=".$row['productId']."&name=".$row['productName']. "&price=" . $row['productPrice'] . "\" style = 'color: #FFCB05'>Add to Cart</a>");
             echo("</div>");
         }
         echo("</div>");

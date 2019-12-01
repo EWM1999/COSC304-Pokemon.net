@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -24,7 +24,6 @@
       .container-narrow {
     background color: #003A70; repeat 0 0;
       }
-
       /* Main marketing message and sign up button */
       .jumbotron {
         margin: 80px 0;
@@ -43,7 +42,6 @@
         padding: 14px 24px;
         background-color: #3D73DA;
       }
-
       /* Supporting marketing content */
       .marketing {
         margin: 60px 0;
@@ -51,8 +49,6 @@
       .marketing p + h4 {
         margin-top: 28px;
       }
-
-
       /* Customize the navbar links to be fill the entire space of the .navbar */
       .navbar .navbar-inner {
         padding: 0;
@@ -86,12 +82,11 @@
           text-align: right;
           color: #FFCB05;
       }
-
       table {
-  		    border-collapse: collapse;
-  		    width: 40%;
+          border-collapse: collapse;
+          width:40%; 
           margin: 2%;
-	    }
+      }
 	    th, td {
   		    text-align: left;
   		    padding: 8px;
@@ -100,7 +95,47 @@
 	    th {
   		    background-color: #FFCB05;
   		    color: #494948;
-	    }
+      }
+      .form-inline {  
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+      }
+
+      .form-inline label {
+        margin: 5px 10px 5px 0;
+      }
+
+        .form-inline input {
+          vertical-align: middle;
+          margin: 5px 10px 5px 0;
+          padding: 10px;
+          background-color: #fff;
+          border: 1px solid #ddd;
+        }
+
+        .form-inline button {
+          padding: 10px 20px;
+          background-color: dodgerblue;
+          border: 1px solid #ddd;
+          color: white;
+          cursor: pointer;
+        }
+
+        .form-inline button:hover {
+          background-color: royalblue;
+        }
+
+        @media (max-width: 800px) {
+          .form-inline input {
+            margin: 10px 0;
+          }
+          
+          .form-inline {
+            flex-direction: column;
+            align-items: stretch;
+          }
+        }
 
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
@@ -118,11 +153,9 @@
 <?php 
     include 'header.php';
     include 'include/db_credentials.php';
-
 // Retrieve and display info for the product
 // $id = $_GET['id'];
 $sql = "SELECT productId, productName, productPrice, productDesc, productImageURL, productImage FROM Product P WHERE productId = ?";
-
 // $id = $_GET['productId'];
 $id = ""; //Error here Notice: Undefined index: id in /srv/home/91175448/public_html/lab8/product.php on line 95 Invalid product
 if (isset($_GET['productId'])){
@@ -131,12 +164,11 @@ if (isset($_GET['productId'])){
 else{
     print("Can I get uhhhh");
 }
-
 $con = sqlsrv_connect($server, $connectionInfo);
 $pstmt = sqlsrv_query($con, $sql, array($id));
-
 $sql = "";
 if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)) {
+  echo("<div class=\"container\">");
     echo "<h2>" . $rst['productName'] . "</h2>";
     $prodId = $rst['productId'];
     $prodDesc = $rst['productDesc'];
@@ -146,7 +178,6 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)) {
         if ($imageLoc != null)
             echo "<img src=\"" . $imageLoc . "\" alt = \"".$rst['productName']."\" style = 'max-width: 50%; border-radius: 50%; margin: 2%; float: left'>";
         echo "</table>";
-
     // Image retreival from database
     $imageBinary = $rst['productImage'];
     if ($imageBinary != null)
@@ -158,48 +189,74 @@ if ($rst = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)) {
         . "<tr><th>Price</th><td>$" . $rst['productPrice'] .  "</td></tr>" 
         ."<th>Description</th><td>" . $prodDesc . "</td></tr>";
     echo "<table><tr>";
-
         
     echo "<h4><a href=\"addcart.php?id=" . $prodId . "&name=" . $rst['productName']
             . "&price=" . $rst['productPrice'] . "\" style = 'float: right; margin: 2%; color: #EAEBED'>Add to Cart</a></h4>";
         
     echo "<h4><a href=\"listprod.php\" style = 'float: right; margin: 2%; color: #EAEBED'>Continue Shopping</a></h4>";
-
     sqlsrv_free_stmt($pstmt);
-
     /* Adding reviews? */
-    echo "<h2>Reviews</h2>";
+    //echo("<br><br><br>");
 
-    // viewing previous reviews
     $sql = "SELECT reviewRating, reviewDate, reviewComment FROM Review WHERE productId = ?";
     $con = sqlsrv_connect($server, $connectionInfo);
     $pstmt = sqlsrv_query($con, $sql, array($prodId));
     if(!$pstmt){
       echo("can I get uhhh");
     }
-    if($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
-      echo("<table border = \"2\" style = 'float: right'>");
-      echo("<tr><th>Review Date</th><th>Review Rating</th><th>Review Comment</th></tr>");
-      echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating']."</td><td>".$row['reviewComment']."</td></tr>");
-      while ($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
-        echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating']."</td><td>".$row['reviewComment']."</td></tr>");
-      }
-      echo "<table>";
-    }else{
-      echo("<p>There are no reviews of this item yet</p>");
-    }
-
+    
     // adding your own review
-    echo("<h4>Review this Product</h4>");
-    echo("<p>All reviews are anonymous, for your safety. Ids are for internal use only</p>");
-    echo("<form method='get' action='review.php?'>");
-    echo("<input type=\"hidden\" name=\"productId\" value=".$prodId.">");
-    echo("<p>Product Rating</p>");
-    echo('<input type="number" name="reviewRating" max=5 min=1 required><br>');
-    echo("<p>Comment</p>");
-    echo('<input type="text" name="reviewComment" maxlength=1000><br>');
-    echo('<input type="submit" value="submit">');
-    echo("</form>");
+   // echo("<h4>Review this Product</h4>");
+   // echo("<p>All reviews are anonymous, for your safety. Ids are for internal use only</p>");
+   // echo("<form method='get' action='review.php?'>");
+   // echo("<input type=\"hidden\" name=\"productId\" value=".$prodId.">");
+   // echo("<p>Product Rating</p>");
+   // echo('<input type="number" name="reviewRating" max=5 min=1 required><br>');
+   // echo("<p>Comment</p>");
+   // echo('<input type="text" name="reviewComment" maxlength=1000><br>');
+   // echo('<input type="submit" value="submit">');
+   // echo("</form>");
+    echo("</div>");
+
+    echo("<div style=\"clear:both\">");
+
+    echo("<div>");
+    if(isset($_SESSION["authenticatedUser"]) && $_SESSION["authenticatedUser"] != null){
+      echo("<h3>Review this Product</h3>");
+      echo("All reviews are anonymous, for your safety. Ids are for internal use only<br>");
+      echo("<div>");
+        echo("<form class='form-inline' form method='get' action='review.php?'>");
+        echo("<input type=\"hidden\" name=\"productId\" value=".$prodId.">");
+        echo("<div style=\"float:left; margin:10px; padding:5px;\">");
+          echo("<label for='reviewRating'>Product Rating:</label>");
+          echo('<input type="number" name="reviewRating" max=5 min=1 required><br>');
+        echo("</div>");
+        echo("<div style=\"float:left; margin:10px; padding:5px;\">");
+          echo("<label for='reviewComment'>Comment:</label>");
+          echo('<input type="text" name="reviewComment" maxlength=1000><br>');
+        echo("</div><br><br>");
+        echo('<input type="submit" value="submit">');
+        echo("</form>");
+      echo("</div>");
+    }
+    echo("</div>");
+
+    echo("<div style=\"clear: both\">");
+      echo("<h3>Reviews</h3>");
+      if($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
+        echo("<table border = \"2\" style = 'border-collapse: collapse; width: 100%;'>");
+        echo("<tr><th>Review Date</th><th>Review Rating</th><th>Review Comment</th></tr>");
+        echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating']."</td><td>".$row['reviewComment']."</td></tr>");
+        while ($row = sqlsrv_fetch_array($pstmt, SQLSRV_FETCH_ASSOC)){
+          echo("<tr><td>".$row['reviewDate']->format('Y-m-d')."</td><td>".$row['reviewRating']."</td><td>".$row['reviewComment']."</td></tr>");
+        }
+        echo "</table>";
+      }else{
+        echo("<p>There are no reviews of this item yet</p>");
+      }
+    echo("</div>");
+
+    echo("</div>");
 
   }else{
     echo "Invalid product";
