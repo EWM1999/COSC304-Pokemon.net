@@ -115,11 +115,16 @@
 
     <h2>Enter your customer id and password to complete the transaction:</h2>
 
-    <form method="POST" action="order.php">
-    <input type="text" name="customerId" size="50" required>
-    <input type="password" name="password" size="30" required>
-    <input type="submit" value="Submit">
-    <input type="reset" value="Reset">
+    <form method="POST" action="payment.php">
+      CustomerId<br>
+      <input type="text" name="customerId" size="50" required><br>
+      Password<br>
+      <input type="password" name="password" size="30" required><br><br>
+      Payment Method<br>
+      <input type="radio" name="payment" value="paypal" checked> Paypal<br>
+      <input type="radio" name="payment" value="paymentmethod"> Card<br><br>
+      <input type="submit" value="Submit">
+      <input type="reset" value="Reset">
     </form>
 
   </div>
