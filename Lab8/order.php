@@ -245,12 +245,14 @@ if(!$result){
 // that makes no sense
 // im not going to do it
 /** Print out order summary **/
+echo("<div style=\"clear:both\">");
 echo("");
 echo("Order Complete :) :). Your pokemon will be wired to you shortly<br>");
 echo("Your order reference is: ".$orderId."<br>");
 echo("We are shipping to Pokemon Trainer ".$customer_name." with id ".$custId."<br>");
 echo("friendly reminder that animal fighting is a crime :)");
 echo("<h2><a href=\"index.php\">Return to collecting 'em all :)</a></h2>");
+echo("</div>");
 /** Clear session/cart **/
 $_SESSION['productList'] = NULL;
 sqlsrv_close($con);
