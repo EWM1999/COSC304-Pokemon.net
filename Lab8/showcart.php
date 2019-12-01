@@ -119,6 +119,12 @@
 // Get the current list of products
 
 session_start();
+if(isset($_SESSION['err_message'])){
+          if ($_SESSION['err_message']  != null) 
+            $message = $_SESSION['err_message']; 
+             echo "<script type='text/javascript'>alert('$message');</script>";
+          }
+$_SESSION['err_message'] = null;
 $productList = null;
 if (isset($_SESSION['productList'])){
 	$productList = $_SESSION['productList'];
@@ -137,7 +143,7 @@ if (isset($_SESSION['productList'])){
 		echo("<tr><td>". $prod['id'] . "</td>");
 		echo("<td>" . $prod['name'] . "</td>");
 
-		echo("<td align=\"center\"><input type='text' name='quantity-".$prod['id']."' size='3' placeholder='". $prod['quantity'] . "'\></td>");
+		echo("<td align=\"center\"><input type='number' name='quantity-".$prod['id']."' size='3' placeholder='". $prod['quantity'] . "'\></td>");
 		$price = $prod['price'];
 
 		echo("<td align=\"right\">$" . number_format($price ,2) ."</td>");

@@ -33,11 +33,11 @@ if (isset($_POST['reset-password'])) {
     // Send email to user with the token in a link they can click on
     $to = $email;
     $subject = "Reset your password on pokemon.net";
-    $msg = "Hi there, here is your password: ".$password;
+    $msg = "Hi there, reset your password here: cosc304.ok.ubc.ca/91175448/lab8/resetPassword.php";
     $msg = wordwrap($msg,70);
     $headers = "From: katchemall.pokemon.net@gmail.com";
     mail($to, $subject, $msg, $headers);
-    header('location: resetLogin.php');
+    header('location: pending.php');
   }
 }
 

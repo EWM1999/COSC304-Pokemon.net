@@ -15,6 +15,7 @@ if(!isset($_GET['productName']) || !isset($_GET['categoryName']) || !isset($_GET
 $productName = $_GET['productName'];
 $categoryName = $_GET['categoryName'];
 $productPrice = floatval($_GET['productPrice']);
+//$productURL = $_GET['myimage'];
 
 
 $productDesc = null;

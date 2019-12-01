@@ -13,9 +13,12 @@ $alterList = array();
 foreach ($productList as $id => $prod) {
 	$alterList[$id] = array( "id"=>$prod['id'], "name"=>$prod['name'], "price"=>$prod['price'], "quantity"=>$prod['quantity'] );
 	$newquantity = "quantity-".$prod['id'];
-	if($_GET[$newquantity]!=null){
+	if($_GET[$newquantity]!=null && $_GET[$newquantity]>=0){
 		$newquantity = $_GET[$newquantity];
 		$alterList[$id]['quantity'] = $newquantity;
+	}else{
+		$_SESSION['err_message'] = "Invalid Input";
+		//echo "<script type='text/javascript'>alert('$message');</script>";
 	}
 }
 

@@ -91,6 +91,13 @@
           padding: 10px;
           color: #FFCB05;
         }
+        .audio{
+          width:100%;
+        }
+        .audio audio{
+          margin: 0 auto;
+          display: table;
+        }
 
     </style>
 
@@ -143,7 +150,13 @@
       </div>
 
       <hr>
-
+      <div class = "audio">
+      <audio controls autoplay loop>
+         <!--<source src="horse.ogg" type="audio/ogg">-->
+        <source src="pokerap.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
       <!-- Example row of columns -->
       <div class="row-fluid">
         <div class="span6">
