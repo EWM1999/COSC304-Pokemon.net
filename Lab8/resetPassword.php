@@ -9,8 +9,8 @@ session_start();
 include 'include/db_credentials.php';;
  
 // Define variables and initialize with empty values
-$new_password = $confirm_password = "";
-$new_password_err = $confirm_password_err = "";
+$new_password = $confirm_password = $username = "";
+$new_password_err = $confirm_password_err = $username_err= "";
 $link = sqlsrv_connect($server, $connectionInfo);
  
 // Processing form data when form is submitted
@@ -34,12 +34,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = "Password did not match.";
         }
     }
+
+    if(empty(trim($_POST["username"]))){
+        $new_userid_err = "Please enter a username.";
+    } else{
+        // Prepare a select statement
+       
+            $username = trim($_POST["username"]);
+           $sql = "SELECT customerId FROM customer WHERE userid = ?";
+        
+            //$test = trim($_POST["username"]);
+            // Bind variables to the prepared statement as parameters
+            $r = sqlsrv_query($link, $sql, array($username));
+            if(!($row = sqlsrv_fetch_array($r, SQLSRV_FETCH_ASSOC))){
+                    $username_err = "Not a valid Username";
+         }
+         $user = $username;
+         
+         
+        // Close statement
+       // mysqli_stmt_close($stmt);
+    }
         
     // Check input errors before updating the database
     if(empty($new_password_err) && empty($confirm_password_err)){
         // Prepare an update statement
         $sql = "UPDATE customer SET password = ? WHERE userid = ?";
+        if(!empty($_SESSION['authenticatedUser'])){
         $user = $_SESSION['authenticatedUser'];
+    }
             // Bind variables to the prepared statement as parameters
             $result = sqlsrv_query($link, $sql, array($new_password, $user));
             
@@ -181,6 +204,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2>Reset Password</h2>
         <p>Please fill out this form to reset your password.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
+            <div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
+                <label>Enter Username</label>
+                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
+                <span class="help-block"><?php echo $username_err; ?></span>
+            </div>
             <div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
                 <label>New Password</label>
                 <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>">
