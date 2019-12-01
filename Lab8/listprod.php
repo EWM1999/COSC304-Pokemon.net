@@ -84,6 +84,21 @@
           text-align: right;
           color: #FFCB05;
         }
+        .product-container {
+            display: flex;
+            flex-flow: row wrap;
+            align-content: stretch;
+            justify-content: center;
+            align-items: stretch;
+
+        }
+        .product-item{
+            background-color: #494948;
+            flex-grow: 1;
+            padding: 10px;
+            margin: 5px;
+            max-width: 20%;
+        }
 
       /* Display table very pretty */
         table {
@@ -129,10 +144,9 @@
 
      <div class="container">
 
-      <!-- the Navbar i cannot figure out how to make -->
-      <div class="masthead">
-        <div class="navbar">
-          <div class="navbar-inner">
+     <div class="masthead">
+            <div class="navbar">
+            <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
                 <li><a href="index.php">Home</a></li>
@@ -140,40 +154,47 @@
                 <li><a href="aboutus.php">About Us</a></li>
               </ul>
             </div>
-          </div>
-        </div><!-- /.navbar -->
-      </div>
+            </div>
+            </div><!-- /.navbar -->
+        </div>
 
-        <h5>Search for a product</h5>
-		<form method="get" action="listprod.php">
-            <p align="left">
-                <p>By Type</p>
-                <select size="1" name="categoryName">
-                  <option>All</option>
-                  <option>Bug</option>
-                  <option>Dark</option>
-                  <option>Dragon</option>
-                  <option>Electric</option>
-                  <option>Fairy</option>
-                  <option>Fighting</option>
-                  <option>Fire</option>
-                  <option>Ghost</option> 
-                  <option>Grass</option>
-                  <option>Ground</option>
-                  <option>Ice</option>
-                  <option>Normal</option>
-                  <option>Poison</option>
-                  <option>Psychic</option> 
-                  <option>Rock</option>  
-                  <option>Steel</option>   
-                  <option>Water</option>
-                </select><br>
-                <p>By Name</p>
-                <input type="text" name="productName" size="50"><br>
+            <h3>Search for a product</h3>
+            <form method="get" action="listprod.php">
+                <div>
+                    <div style='float:left; max-width:50%;padding:5px;margin:10px;'>
+                        <p>By Type</p>
+                        <select size="1" name="categoryName">
+                        <option>All</option>
+                        <option>Bug</option>
+                        <option>Dark</option>
+                        <option>Dragon</option>
+                        <option>Electric</option>
+                        <option>Fairy</option>
+                        <option>Fighting</option>
+                        <option>Fire</option>
+                        <option>Ghost</option> 
+                        <option>Grass</option>
+                        <option>Ground</option>
+                        <option>Ice</option>
+                        <option>Normal</option>
+                        <option>Poison</option>
+                        <option>Psychic</option> 
+                        <option>Rock</option>  
+                        <option>Steel</option>   
+                        <option>Water</option>
+                        </select><br>
+                    </div>
+                    <div style='max-width: 50%;padding:5px;margin:10px;'>
+                        <p>By Name</p>
+                        <input type="text" name="productName" size="50"><br>
+                    </div>
+                </div>
+                <div style='padding:5px;margin:10px;'>
                 <input type="submit" value="Submit"><input type="reset" value="Reset" onclick="location.href='listprod.php'"> (Leave blank for all products)
-        </p>
-    </form>
-    <br>
+                </div>
+            </p>
+            </form>
+        <br>
     
     <?php 
     #include 'header.php';
@@ -238,35 +259,29 @@
                 echo("<h2>All Products</h2>");
             }
 
-		echo("<table border = \"1\"><tr><th>Add to Cart</th><th>Image</th><th>Product Name</th><th>Price</th><th>Category</th></tr>");
-		while($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
-            echo("<tr><td><a href =\"addcart.php?id=".$row['productId']."&name=".$row['productName']. "&price=" . $row['productPrice'] . "\" style = 'color: #FFCB05'>Add</a></td>");
-            $imageLoc = $row['productImageURL'];
-            echo "<td><img src=\"" . $imageLoc . "\" alt = \"".$row['productName']."\" style = 'max-width: 10%; border-radius: 50%; margin: 2%; float: left'></td>";
-            echo("<td><a href =\"product.php?productId=".$row['productId']."\" style = 'color: #FFCB05'>".$row['productName']."</a></td>");
-            echo("<td>".number_format($row['productPrice'],2)."</td>");
-            //$itemCategory = $row['categoryName'];
-            echo("<td>".$row['categoryName']."</td></tr>");
-		}
-		echo("</table>");
-		
+		// echo("<table border = \"1\"><tr><th>Add to Cart</th><th>Image</th><th>Product Name</th><th>Price</th><th>Category</th></tr>");
+		// while($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
+        //     echo("<tr><td><a href =\"addcart.php?id=".$row['productId']."&name=".$row['productName']. "&price=" . $row['productPrice'] . "\" style = 'color: #FFCB05'>Add</a></td>");
+        //     $imageLoc = $row['productImageURL'];
+        //     echo "<td><img src=\"" . $imageLoc . "\" alt = \"".$row['productName']."\" style = 'max-width: 10%; border-radius: 50%; margin: 2%; float: left'></td>";
+        //     echo("<td><a href =\"product.php?productId=".$row['productId']."\" style = 'color: #FFCB05'>".$row['productName']."</a></td>");
+        //     echo("<td>".number_format($row['productPrice'],2)."</td>");
+        //     echo("<td>".$row['categoryName']."</td></tr>");
+		// }
+        // echo("</table>");
+        
+        echo("<div class=\"product-container\">");
+        while($row = sqlsrv_fetch_array($result1, SQLSRV_FETCH_ASSOC)){
+            echo("<div class=\"product-item\">");
+            echo("<a href =\"product.php?productId=".$row['productId']."\" style = 'color: #FFCB05'>");
+            echo("<img src=\"".$row['productImageURL']."\" alt = \"".$row['productName']."\" style = 'max-width: 80%; border-radius: 50%; margin: 2%; display: block; margin-left: auto; margin-right: auto;'></a>");
+            echo("<a href =\"product.php?productId=".$row['productId']."\" style = 'color: #FFCB05;'><h5 style = 'color: #FFCB05; text-align: center;'>".$row['productName']."</h5></a>");
+            echo("<p style = 'color: #FFCB05; text-align: center;'>".$row['categoryName']."<br>$".$row['productPrice']."</p>"); 
+            echo("</div>");
+        }
+        echo("</div>");
 
-			/** Print out the ResultSet **/
-
-			/** 
-			For each product create a link of the form
-			addcart.php?id=<productId>&name=<productName>&price=<productPrice>
-			Note: As some product names contain special characters, you may need to encode URL parameter for product name like this: urlencode($productName)
-			**/
-			
-			/** Close connection **/
-
-			/**
-		        Useful code for formatting currency:
-			       number_format(yourCurrencyVariableHere,2)
-		     **/
-			//$name = "";
-		sqlsrv_close($con);
+        sqlsrv_close($con);
 	?>
 
 </div>
