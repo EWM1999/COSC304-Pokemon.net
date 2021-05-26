@@ -1,8 +1,7 @@
-# Tests OrderDB implementation
+"""
+Tests OrderDB implementation
+"""
 import unittest
-# # Note: If using Jupyter Notebook may need to use special package to import notebooks
-# # pip install import_ipnyb
-# import import_ipynb
 import OrderDB
 
 
