@@ -1,7 +1,9 @@
 .DS_Store
 
-.idea/
-.idea/*
+!.idea/
+!.idea/*
+!.metadata/*
+
 
 .vscode/*
 !.vscode/settings.json
@@ -12,4 +14,6 @@
 
 # Local History for Visual Studio Code
 .history/
+
+venv/
 
