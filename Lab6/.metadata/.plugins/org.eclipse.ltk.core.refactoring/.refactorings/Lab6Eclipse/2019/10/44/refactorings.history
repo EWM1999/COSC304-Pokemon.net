@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;Lab6Eclipse/src/Lab6Code.py&apos; to &apos;OrderDB.py&apos;" description="Rename resource &apos;Lab6Code.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Lab6Code.py" name="OrderDB.py" stamp="1572490475646" updateReferences="true"/>
-</session>
